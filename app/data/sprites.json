@@ -1,0 +1,23 @@
+[
+    {
+        "name": "Single Frame Animation",
+        "_id": "single-frame-animation",
+        "image": "single-image",
+        "width": 22,
+        "height": 11
+    },
+    {
+        "name": "Single Frame Animation",
+        "_id": "single-frame-animation",
+        "image": "single-image",
+        "width": 22,
+        "height": 11
+    },
+    {
+        "name": "Single Frame Animation",
+        "_id": "single-frame-animation",
+        "image": "single-image",
+        "width": 22,
+        "height": 11
+    }
+]

@@ -1,0 +1,37 @@
+[
+    {
+        "name": "Single Frame Image",
+        "_id": "single-image",
+        "width": 22,
+        "height": 11,
+        "src": "images/barrel.png"
+    },
+    {
+        "name": "Single Frame Image",
+        "_id": "single-image",
+        "width": 22,
+        "height": 11,
+        "src": "images/barrel.png"
+    },
+    {
+        "name": "Single Frame Image",
+        "_id": "single-image",
+        "width": 22,
+        "height": 11,
+        "src": "images/barrel.png"
+    },
+    {
+        "name": "Single Frame Image",
+        "_id": "single-image",
+        "width": 22,
+        "height": 11,
+        "src": "images/barrel.png"
+    },
+    {
+        "name": "Lorem Ipsum",
+        "_id": "single-image",
+        "width": 22,
+        "height": 11,
+        "src": "images/barrel.png"
+    }
+]

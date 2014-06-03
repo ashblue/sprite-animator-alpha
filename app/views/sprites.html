@@ -1,0 +1,59 @@
+<main-nav></main-nav>
+
+<div class="row">
+    <div class="col-md-4">
+        <img src="//placehold.it/300" />
+        <a href="#">Clear Image</a>
+    </div>
+
+    <div class="col-md-8">
+        <form name="spriteForm">
+            <div class="form-group">
+                <label for="sprite-file">Image File</label>
+                <input id="sprite-file" type="file" />
+            </div>
+            <div class="form-group">
+                <label for="sprite-rows">Rows</label>
+                <input id="sprite-rows" class="form-control" required class="" type="number" />
+            </div>
+            <div class="form-group">
+                <label for="sprite-cols">Columns</label>
+                <input id="sprite-cols" class="form-control" required class="" type="number" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Images <small>Alt to uploading an image</small></h2>
+        <input style="margin-bottom: 10px" class="form-control" type="search" ng-model="imageSearch" placeholder="Filter">
+        <div class="list-group" ng-repeat="image in spriteSheet.images | filter:imageSearch">
+            <a href="#" class="list-group-item">
+                <span class="pull-left" style="margin-right: 10px">
+                    <img ng-src="{{image.src}}" />
+                </span>
+                <div class="media-body">
+                    <h4 class="media-heading">{{image.name}}</h4>
+                    Width: {{image.width}}, Height: {{image.height}}
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <h2>Sprite Sheets <small>Images ready for animating</small></h2>
+        <input style="margin-bottom: 10px" class="form-control" type="search" ng-model="spriteSearch" placeholder="Filter">
+        <div class="list-group" ng-repeat="sprite in spriteSheet.sprites | filter:spriteSearch">
+            <a href="#" class="list-group-item">
+                <span class="pull-left" style="margin-right: 10px">
+                    <img ng-src="{{spriteSheet.getImageSrc(sprite.image)}}" />
+                </span>
+                <div class="media-body">
+                    <h4 class="media-heading">{{sprite.name}}</h4>
+                    F-Width: {{sprite.width}}, F-Height: {{sprite.height}}
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
