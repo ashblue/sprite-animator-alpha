@@ -59,3 +59,9 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
     content: 'x'
   }
 }
+
+#canvas-upload-preview {
+  canvas {
+    max-width: 100%;
+  }
+}

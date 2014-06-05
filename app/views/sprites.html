@@ -2,10 +2,11 @@
 
 <div class="container">
     <div class="row">
-        <form ng-controller="UploadController as uploadCtrl" name="spriteForm">
+        <form ng-controller="UploadController as uploadCtrl" name="spriteForm" id="form-upload">
             <div class="col-md-4">
                 <div id="slice-lines-container">
-                    <img id="upload-preview" ng-src="{{uploadCtrl.upload.image}}" />
+                    <img id="upload-preview" ng-src="{{uploadCtrl.upload.image}}" ng-hide="uploadCtrl.imageReady" />
+                    <div id="canvas-upload-preview" ng-show="uploadCtrl.imageReady"></div>
                     <canvas id="canvas-slice" class="slice-lines" ng-show="uploadCtrl.imageReady"></canvas>
                 </div>
                 <button class="btn btn-default" ng-show="uploadCtrl.imageReady" ng-click="uploadCtrl.clearImage()">Clear Image</button>

@@ -4,11 +4,14 @@
     var app = angular.module('spriteApp');
 
     app.controller('SpriteZoom', [function () {
-//        var scaler = document.getElementById('scale-range');
         this.scale = 1;
 
         this.setScale = function () {
-            console.log('hit');
+            var uploadCtrl = angular.element(document.getElementById('form-upload')).scope().uploadCtrl;
+            if (uploadCtrl.upload.imageCanvas) {
+                uploadCtrl.upload.imageCanvas.draw(this.scale);
+                uploadCtrl.setSlice();
+            }
         };
     }]);
 })();

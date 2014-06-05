@@ -12,7 +12,7 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li ng-controller="SpriteZoom as zoom">
+                <li id="zoom" ng-controller="SpriteZoom as zoom">
                     <span ng-class="scaleValue" id="scale-value">{{zoom.scale}}</span>
                     <input ng-click="scaleValue='active'" ng-blur="scaleValue=''" ng-model="zoom.scale" ng-change="zoom.setScale()" type="range" id="scale-range" min="1" max="4">
                 </li>

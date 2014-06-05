@@ -2,6 +2,7 @@
     'use strict';
 
     var app = angular.module('spriteApp');
+    console.log(app);
 
     app.controller('UploadController', ['$scope', function ($scope) {
         var controller = this;
@@ -14,6 +15,7 @@
 
         this.upload = {
             image: DEFAULT_IMAGE,
+            imageCanvas: null,
             rows: 3,
             cols: 3
         };
@@ -26,6 +28,16 @@
             // @TODO In addition to inputs also support pre-existing images with ID (use hidden input)
             // @TODO Also support data-uris
 
+            var zoom = angular.element(document.getElementById('zoom')).scope().zoom;
+
+            var $scaledContainer = $('#canvas-upload-preview');
+            this.upload.imageCanvas = null;
+            this.upload.imageCanvas = new window.SimpleSpriteSheet(image, {
+                scale: zoom.scale
+            });
+            $scaledContainer.children().detach();
+            $scaledContainer.append(this.upload.imageCanvas.canvas);
+
             $scope.uploadCtrl.upload.image = image;
             $scope.uploadCtrl.imageReady = ready === false ? false : true;
             this.setSlice();
@@ -35,8 +47,6 @@
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 var self = this;
-
-                // @TODO Verify image is jpg, png, or gif
 
                 reader.onload = function (e) {
                     $scope.$apply(function () {
@@ -53,9 +63,11 @@
         this.setSlice = function () {
             if (!this.imageReady) return;
 
+            var zoom = angular.element(document.getElementById('zoom')).scope().zoom;
+
             var img = document.getElementById('upload-preview');
-            canvas.width = img.naturalWidth;
-            canvas.height = img.naturalHeight;
+            canvas.width = img.naturalWidth * zoom.scale;
+            canvas.height = img.naturalHeight * zoom.scale;
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.strokeStyle = '#0ff';
