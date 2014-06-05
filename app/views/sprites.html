@@ -1,27 +1,39 @@
 <main-nav></main-nav>
 
 <div class="row">
-    <div class="col-md-4">
-        <img src="//placehold.it/300" />
-        <a href="#">Clear Image</a>
-    </div>
-
-    <div class="col-md-8">
-        <form name="spriteForm">
-            <div class="form-group">
-                <label for="sprite-file">Image File</label>
-                <input id="sprite-file" type="file" />
+    <form ng-controller="UploadController as uploadCtrl" name="spriteForm">
+        <div class="col-md-4">
+            <div id="slice-lines-container">
+                <img id="upload-preview" ng-src="{{uploadCtrl.upload.image}}" />
+                <canvas id="canvas-slice" class="slice-lines" ng-show="uploadCtrl.imageReady"></canvas>
             </div>
+            <button class="btn btn-default" ng-show="uploadCtrl.imageReady" ng-click="uploadCtrl.clearImage()">Clear Image</button>
+        </div>
+
+        <div class="col-md-8">
+
+            <div class="form-group" ng-hide="uploadCtrl.imageReady">
+                <label for="sprite-file">Image File</label>
+                <input accept="image/*" id="sprite-file" type="file" ng-model="uploadCtrl"
+                       onchange="angular.element(this).scope().uploadCtrl.imageUpload(this)"/>
+            </div>
+
             <div class="form-group">
                 <label for="sprite-rows">Rows</label>
-                <input id="sprite-rows" class="form-control" required class="" type="number" />
+                <input ng-change="uploadCtrl.setSlice()" min="1" id="sprite-rows" class="form-control" required type="number" ng-model="uploadCtrl.upload.rows" />
             </div>
+
             <div class="form-group">
                 <label for="sprite-cols">Columns</label>
-                <input id="sprite-cols" class="form-control" required class="" type="number" />
+                <input ng-change="uploadCtrl.setSlice()" min="1" id="sprite-cols" class="form-control" required type="number" ng-model="uploadCtrl.upload.cols" />
             </div>
-        </form>
-    </div>
+
+            <input type="hidden" name="image"/>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        </div>
+    </form>
 </div>
 
 <div class="row">
