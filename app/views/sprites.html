@@ -2,7 +2,7 @@
 
 <div class="container">
     <div class="row">
-        <form ng-controller="UploadController as uploadCtrl" name="spriteForm" id="form-upload">
+        <form ng-controller="UploadController as uploadCtrl" name="spriteForm" id="form-upload" ng-submit="spriteForm.$valid && uploadCtrl.imageReady && uploadCtrl.addUpload(uploadCtrl.upload)">
             <div class="col-md-4">
                 <div id="slice-lines-container">
                     <img id="upload-preview" ng-src="{{uploadCtrl.upload.image}}" ng-hide="uploadCtrl.imageReady" />
@@ -13,6 +13,11 @@
             </div>
 
             <div class="col-md-8">
+
+                <div class="form-group">
+                    <label for="sprite-name">Name</label>
+                    <input class="form-control" id="sprite-name" type="text" required ng-model="uploadCtrl.upload.name" />
+                </div>
 
                 <div class="form-group" ng-hide="uploadCtrl.imageReady">
                     <label for="sprite-file">Image File</label>
@@ -38,7 +43,7 @@
         </form>
     </div>
 
-    <div class="row">
+    <div class="row" id="sprite-sheets" ng-controller="SpriteCtrl as sprites">
         <div class="col-md-6">
             <h2>Images <small>Alt to uploading an image</small></h2>
             <input style="margin-bottom: 10px" class="form-control" type="search" ng-model="imageSearch" placeholder="Filter">
@@ -50,6 +55,8 @@
                     <div class="media-body">
                         <h4 class="media-heading">{{image.name}}</h4>
                         Width: {{image.width}}, Height: {{image.height}}
+                        <button ng-click="spriteSheet.editImage($event, image)" class="btn btn-default btn-xs pull-right"><span class="glyphicon glyphicon-edit"></span></button>
+                        <button ng-click="spriteSheet.removeImage($event, image)" style="margin-right: 5px;" class="btn btn-danger btn-xs pull-right"><span class="glyphicon glyphicon-remove"></span></button>
                     </div>
                 </a>
             </div>
@@ -66,6 +73,8 @@
                     <div class="media-body">
                         <h4 class="media-heading">{{sprite.name}}</h4>
                         F-Width: {{sprite.width}}, F-Height: {{sprite.height}}
+                        <button ng-click="spriteSheet.editSprite($event, sprite)" class="btn btn-default btn-xs pull-right"><span class="glyphicon glyphicon-edit"></span></button>
+                        <button ng-click="spriteSheet.removeSprite($event, sprite)" style="margin-right: 5px;" class="btn btn-danger btn-xs pull-right"><span class="glyphicon glyphicon-remove"></span></button>
                     </div>
                 </a>
             </div>

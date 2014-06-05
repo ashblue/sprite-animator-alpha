@@ -17,13 +17,16 @@
             imageCanvas: null,
             rows: 3,
             cols: 3,
-            image_id: null
+            image_id: null,
+            name: null
         };
 
         this.addUpload = function (sprite) {
-            // if (no imageId) Dump the image into a new image item
-            // Dump the sprite sheet into a new sprite sheet
-
+            $scope.$emit('parseUpload', sprite);
+            this.clearImage();
+            this.upload.name = null;
+            this.upload.rows = 3;
+            this.upload.cols = 3;
         };
 
         this.setImage = function (image, ready, id) {
