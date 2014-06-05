@@ -2,7 +2,6 @@
     'use strict';
 
     var app = angular.module('spriteApp');
-    console.log(app);
 
     app.controller('UploadController', ['$scope', function ($scope) {
         var controller = this;
@@ -17,30 +16,35 @@
             image: DEFAULT_IMAGE,
             imageCanvas: null,
             rows: 3,
-            cols: 3
+            cols: 3,
+            image_id: null
         };
 
         this.addUpload = function (sprite) {
-            console.log('submitted');
+            // if (no imageId) Dump the image into a new image item
+            // Dump the sprite sheet into a new sprite sheet
+
         };
 
-        this.setImage = function (image, ready) {
-            // @TODO In addition to inputs also support pre-existing images with ID (use hidden input)
-            // @TODO Also support data-uris
+        this.setImage = function (image, ready, id) {
+            this.upload.image_id = id;
 
             var zoom = angular.element(document.getElementById('zoom')).scope().zoom;
 
             var $scaledContainer = $('#canvas-upload-preview');
             this.upload.imageCanvas = null;
             this.upload.imageCanvas = new window.SimpleSpriteSheet(image, {
-                scale: zoom.scale
+                scale: zoom.scale,
+                callback: function ( ){
+                    controller.setSlice();
+                }
             });
             $scaledContainer.children().detach();
             $scaledContainer.append(this.upload.imageCanvas.canvas);
 
             $scope.uploadCtrl.upload.image = image;
             $scope.uploadCtrl.imageReady = ready === false ? false : true;
-            this.setSlice();
+//            this.setSlice();
         };
 
         this.imageUpload = function (input) {
@@ -94,6 +98,7 @@
         this.clearImage = function () {
             document.getElementById('sprite-file').value = '';
             this.setImage(DEFAULT_IMAGE, false);
+            this.upload.image_id = null;
         }
     }]);
 })();

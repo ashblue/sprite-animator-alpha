@@ -16,6 +16,13 @@
             return '';
         };
 
+        // Inject the chosen image into the upload details
+        this.showImage = function (e, image) {
+            e.preventDefault();
+            var uploadCtrl = angular.element(document.getElementById('form-upload')).scope().uploadCtrl;
+            uploadCtrl.setImage(image.src, true, image._id);
+        };
+
         $http.get('/data/images.json').success(function (data) {
             self.images = data;
         });

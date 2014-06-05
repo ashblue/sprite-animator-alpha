@@ -30,7 +30,7 @@
                     <input ng-change="uploadCtrl.setSlice()" min="1" id="sprite-cols" class="form-control" required type="number" ng-model="uploadCtrl.upload.cols" />
                 </div>
 
-                <input type="hidden" name="image"/>
+                <input ng-model="uploadCtrl.upload.image_id" type="hidden" />
 
                 <button type="submit" class="btn btn-primary">Submit</button>
 
@@ -43,10 +43,10 @@
             <h2>Images <small>Alt to uploading an image</small></h2>
             <input style="margin-bottom: 10px" class="form-control" type="search" ng-model="imageSearch" placeholder="Filter">
             <div class="list-group" ng-repeat="image in spriteSheet.images | filter:imageSearch">
-                <a href="#" class="list-group-item">
-                <span class="pull-left" style="margin-right: 10px">
-                    <img ng-src="{{image.src}}" />
-                </span>
+                <a href="#" class="list-group-item" ng-click="spriteSheet.showImage($event, image)">
+                    <span class="pull-left" style="margin-right: 10px">
+                        <img ng-src="{{image.src}}" />
+                    </span>
                     <div class="media-body">
                         <h4 class="media-heading">{{image.name}}</h4>
                         Width: {{image.width}}, Height: {{image.height}}
