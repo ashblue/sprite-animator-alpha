@@ -13,10 +13,6 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
     padding: 0.2em 0;
 }
 
-.header {
-  margin-bottom: 20px;
-}
-
 .container {
   max-width: 940px;
 }
@@ -36,5 +32,30 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
     left: 0;
     outline: 1px solid #f00;
     max-width: 100%;
+  }
+}
+
+#scale-range {
+  margin: 20px 0 0 0;
+  width: 100px;
+}
+
+#scale-value {
+  background: #333;
+  color: #fff;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin: -5px 0 0 -30px;
+  padding: 3px;
+  border-radius: 3px;
+  display: none;
+  
+  &.active {
+    display: block;
+  }
+
+  &:after {
+    content: 'x'
   }
 }

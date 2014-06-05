@@ -28,7 +28,7 @@
 <![endif]-->
 
 <!-- Add your site or application content here -->
-<div class="container" ng-view=""></div>
+<div ng-view=""></div>
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 <script>
@@ -79,10 +79,13 @@
 <!-- endbuild -->
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/libs/simple-sprite-image.js"></script>
+<script src="scripts/libs/simple-sprite.js"></script>
 <script src="scripts/app.js"></script>
 <script src="scripts/controllers/upload.js"></script>
 <script src="scripts/controllers/header.js"></script>
 <script src="scripts/controllers/sprites.js"></script>
+<script src="scripts/controllers/zoom.js"></script>
 <script src="scripts/controllers/main.js"></script>
 <!-- endbuild -->
 </body>
