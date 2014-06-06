@@ -1,0 +1,44 @@
+<div id="timeline">
+
+    <div class="clearfix">
+        <div class="sidebar">
+            <div class="timeline-header">
+                <span title="Add a new sprite sheet" class="fa fa-play"></span>
+                <span title="Add a new sprite sheet" class="fa fa-pause"></span>
+                <span title="Add a new sprite sheet" class="fa fa-stop"></span>
+                <span title="Add a new sprite sheet" class="fa fa-fast-backward"></span>
+            </div>
+
+            <div class="timeline-content">
+                <div class="layer">
+                    <div class="sidebar">
+                        <input type="text" value="layer name" />
+                        <i class="fa fa-lock"></i>
+                        <i class="fa fa-unlock"></i>
+                        <i class="fa fa-eye"></i>
+                        <i class="fa fa-eye-slash"></i>
+                    </div>
+
+                    <div class="main">
+                        <div data-size="2" class="block"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main">
+            <div class="timeline-header">
+                <span class="tick-number start">0</span>
+                <span class="tick-number" ng-repeat="n in [] | range:75">{{($index * 5) + 5}}</span>
+                <div class="tick-contain">
+                    <span class="tick" ng-repeat="n in [] | range:428"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="timeline-toolbar">
+        <span title="Add a new sprite sheet" class="fa fa-file"></span>
+        <span title="Remove current layer" class="fa fa-trash-o"></span>
+    </div>
+</div>
