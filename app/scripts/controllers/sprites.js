@@ -1,6 +1,8 @@
 (function () {
     'use strict';
 
+    // @TODO At some point you should be able to select multiple sprites to compose an animation
+
     var app = angular.module('spriteApp');
 
     var _id = 0; // Fake id system
@@ -38,6 +40,7 @@
         });
 
         this.addImage = function (name, src, width, height) {
+            // @TODO Talk to a server first
             var image = {
                 name: name,
                 _id: _id += 1,
@@ -52,6 +55,7 @@
         };
 
         this.addSprite = function (name, image_id, frameWidth, frameHeight) {
+            // @TODO Talk to a server first
             this.sprites.unshift({
                 name: name,
                 _id: _id += 1,
@@ -82,17 +86,23 @@
             e.stopPropagation();
 
             // @TODO Should actually talk to a server first
-            // @TODO Will have to remove all associated sprites too
             for (var i = this.images.length; i--;) {
                 if (this.images[i]._id === image._id) {
-                    return this.images.splice(i, 1);
+                    var removedImage = this.images.splice(i, 1)[0];
+                    break;
+                }
+            }
+
+            for (var i = 0, l = this.sprites.length; i < l; i++) {
+                if (this.sprites[i].image === removedImage._id) {
+                    this.removeSprite(null, this.sprites[i]);
                 }
             }
         };
 
         this.removeSprite = function (e, sprite) {
-            e.preventDefault();
-            e.stopPropagation();
+            if (e) e.preventDefault();
+            if (e) e.stopPropagation();
 
             // @TODO Should actually talk to a server first
             for (var i = this.sprites.length; i--;) {
