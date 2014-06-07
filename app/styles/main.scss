@@ -146,6 +146,38 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
     margin-left: 240px;
     min-height: 100px;
     overflow: scroll;
+    position: relative;
+
+    .timeline-guide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+
+      .box {
+        z-index: 1;
+        display: block;
+        cursor: -webkit-grab;
+        cursor: grab;
+        width: $tick - 2px;
+        height: 24px;
+        border: 1px solid #b20000;
+        margin-left: 1px;
+        background: rgba(255, 0, 0, 0.3);
+        margin-top: 2px;
+      }
+      
+      .tail {
+        background: #b20000;
+        display: block;
+        width: 1px;
+        height: 100%;
+        margin-left: 8px;
+      }
+    }
 
     &::-webkit-scrollbar {
       width: 10px;
