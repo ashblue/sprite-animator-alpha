@@ -8,8 +8,8 @@
     var _id = 0; // Fake id system
 
     app.controller('AnimationTimelineCtrl', ['$scope', '$http', function ($scope, $http) {
-        console.log('create');
         // BEGIN Dat gui test
+        // @TODO Remember open / close state via local storage
         // @TODO Move into an appropriate method
         // @TODO DOM element must be manually generated at controller init so it doesn't show up on every page
         var gui = new dat.GUI({ autoPlace: false });
@@ -48,7 +48,6 @@
         // END Dat gui test
 
         $scope.$on('$destroy', function () {
-            console.log('destroy');
             $('#dat-gui').children().detach();
         });
     }]);
