@@ -1,4 +1,5 @@
 <div id="timeline">
+    <div class="resize-timeline"></div>
 
     <div class="clearfix">
         <div class="sidebar">
@@ -7,21 +8,59 @@
                 <span title="Add a new sprite sheet" class="fa fa-pause"></span>
                 <span title="Add a new sprite sheet" class="fa fa-stop"></span>
                 <span title="Add a new sprite sheet" class="fa fa-fast-backward"></span>
+
+                <span title="Export animation" class="fa fa-download pull-right"></span>
             </div>
 
             <div class="timeline-content">
-                <div class="layer">
-                    <div class="sidebar">
-                        <input type="text" value="layer name" />
-                        <i class="fa fa-lock"></i>
-                        <i class="fa fa-unlock"></i>
-                        <i class="fa fa-eye"></i>
-                        <i class="fa fa-eye-slash"></i>
-                    </div>
+                <div draggable="true" class="layer-details" data-layer="ID">
+                    <!-- @TODO Clicking protect-input sets focus on input -->
+                    <div class="protect-input"></div>
+                    <input type="text" value="layer name" />
 
-                    <div class="main">
-                        <div data-size="2" class="block"></div>
-                    </div>
+                    <span title="Toggle visible to hide in visual view" class="group pull-right">
+                        <i class="fa fa-eye"></i>
+                        <i class="fa fa-eye-slash hide"></i>
+                    </span>
+                    <span title="Toggle lock to disable interactions" class="group pull-right">
+                        <i class="fa fa-lock"></i>
+                        <i class="fa fa-unlock hide"></i>
+                    </span>
+                    <span title="View layer sprite details" class="group pull-right">
+                        <i class="fa fa-picture-o"></i>
+                    </span>
+                </div>
+
+                <div class="layer-details" data-layer="ID">
+                    <div class="protect-input"></div>
+                    <input type="text" value="layer name" />
+                    <span class="group pull-right">
+                        <i class="fa fa-eye"></i>
+                        <i class="fa fa-eye-slash hide"></i>
+                    </span>
+                    <span class="group pull-right">
+                        <i class="fa fa-lock"></i>
+                        <i class="fa fa-unlock hide"></i>
+                    </span>
+                    <span class="group pull-right">
+                        <i class="fa fa-picture-o"></i>
+                    </span>
+                </div>
+
+                <div class="layer-details" data-layer="ID">
+                    <div class="protect-input"></div>
+                    <input type="text" value="layer name" />
+                    <span class="group pull-right">
+                        <i class="fa fa-eye"></i>
+                        <i class="fa fa-eye-slash hide"></i>
+                    </span>
+                    <span class="group pull-right">
+                        <i class="fa fa-lock"></i>
+                        <i class="fa fa-unlock hide"></i>
+                    </span>
+                    <span class="group pull-right">
+                        <i class="fa fa-picture-o"></i>
+                    </span>
                 </div>
             </div>
         </div>
@@ -29,9 +68,32 @@
         <div class="main">
             <div class="timeline-header">
                 <span class="tick-number start">0</span>
-                <span class="tick-number" ng-repeat="n in [] | range:75">{{($index * 5) + 5}}</span>
+                <span class="tick-number" ng-repeat="n in [] | range:100">{{($index * 5) + 5}}</span>
                 <div class="tick-contain">
-                    <span class="tick" ng-repeat="n in [] | range:428"></span>
+                    <span class="tick" ng-repeat="n in [] | range:500"></span>
+                </div>
+            </div>
+
+            <div class="timeline-content">
+                <div data-layer="ID" class="layer-timeline">
+                    <div class="tick-background">
+                        <span class="tick" ng-repeat="n in [] | range:500"></span>
+                    </div>
+                </div>
+
+                <div data-layer="ID" class="layer-timeline">
+                    <div class="tick-background">
+                        <span class="tick" ng-repeat="n in [] | range:500"></span>
+                    </div>
+
+                    <span style="left: 0; width: 14px;" class="tick-fill"></span>
+                    <span style="left: 31px; width: 28px;" class="tick-fill active"></span>
+                </div>
+
+                <div data-layer="ID" class="layer-timeline">
+                    <div class="tick-background">
+                        <span class="tick" ng-repeat="n in [] | range:500"></span>
+                    </div>
                 </div>
             </div>
         </div>
