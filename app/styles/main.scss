@@ -6,6 +6,18 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
 @import "../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
 
+#dat-gui {
+  position: fixed;
+  right: 0;
+  top: 52px;
+
+  .dg {
+    input {
+      line-height: 100%;
+    }
+  }
+}
+
 .browsehappy {
     margin: 0.2em 0;
     background: #ccc;
