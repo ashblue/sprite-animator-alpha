@@ -48,9 +48,12 @@
 
         if (!this.online) {
             data._id = this._id += 1;
+            this.data[data._id] = data;
             this.list.unshift(data);
+            if (callback) callback(data);
         } else {
             $http.post(this.url).success(function (item) {
+                this.data[item._id] = item;
                 collection.list.unshift(item);
                 if (callback) callback(item);
             });

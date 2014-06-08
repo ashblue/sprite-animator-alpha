@@ -3,7 +3,7 @@
 
     var app = angular.module('spriteApp');
 
-    app.controller('UploadController', ['$scope', function ($scope) {
+    app.controller('UploadCtrl', ['$scope', function ($scope) {
         var controller = this;
         this.imageReady = false;
         var DEFAULT_IMAGE = '//placehold.it/300';
@@ -104,4 +104,13 @@
             this.upload.image_id = null;
         }
     }]);
+
+    app.directive('uploadForm', function() {
+        return {
+            restrict: 'E',
+            templateUrl: 'scripts/uploads/upload-view-form.html',
+            controller: 'UploadCtrl',
+            controllerAs: 'uploadCtrl'
+        };
+    });
 })();

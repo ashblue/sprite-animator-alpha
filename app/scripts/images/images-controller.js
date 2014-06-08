@@ -9,11 +9,10 @@
         this.list = imageSrv.list;
 
         $scope.$on('parseUpload', function (event, sprite) {
-            // @TODO Create image via service
             if (!sprite.image_id) {
                 imageSrv.create({
                     name: sprite.name + ' image',
-                    image: sprite.image,
+                    src: sprite.image,
                     width: sprite.imageCanvas.canvas.width,
                     height: sprite.imageCanvas.canvas.height
                 }, function (item) {
@@ -21,6 +20,7 @@
                     $scope.$emit('createSprite', sprite);
                 });
             } else {
+                sprite.image = sprite.image_id;
                 $scope.$emit('createSprite', sprite);
             }
         });
@@ -29,6 +29,7 @@
         // @TODO On the fence with this, feels more like it should be converted to an event emitter
         this.showImage = function (e, image) {
             e.preventDefault();
+
             var uploadCtrl = angular.element(document.getElementById('form-upload')).scope().uploadCtrl;
             uploadCtrl.setImage(image.src, true, image._id);
         };
@@ -63,7 +64,7 @@
             restrict: 'E',
             templateUrl: 'scripts/images/images-view-list.html',
             controller: 'ImageCtrl',
-            controllerAs: 'images'
+            controllerAs: 'imagesCtrl'
         };
     });
 })();

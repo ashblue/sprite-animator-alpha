@@ -9,9 +9,12 @@
 
         // Expects sprite sheet data from the upload form
         $scope.$on('createSprite', function (event, sprite) {
-            sprite.width = sprite.imageCanvas.canvas.width / sprite.cols;
-            sprite.height = sprite.imageCanvas.canvas.height / sprite.rows;
-            spriteCtrl.create(sprite);
+            spriteSrv.create({
+                name: sprite.name,
+                image: sprite.image,
+                width: sprite.imageCanvas.canvas.width / sprite.cols,
+                height: sprite.imageCanvas.canvas.height / sprite.rows
+            });
         });
 
         this.editSprite = function (e, sprite) {
@@ -40,7 +43,7 @@
             restrict: 'E',
             templateUrl: 'scripts/sprites/sprites-view-list.html',
             controller: 'SpriteCtrl',
-            controllerAs: 'sprites'
+            controllerAs: 'spritesCtrl'
         };
     });
 })();
