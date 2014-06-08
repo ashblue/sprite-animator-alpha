@@ -17,7 +17,16 @@
                 .when('/sprites', {
                     templateUrl: 'views/sprites.html',
                     controller: 'SpriteCtrl',
-                    controllerAs: 'spriteSheet'
+                    controllerAs: 'spriteSheet',
+                    resolve: {
+                        images: function (imageSrv) {
+                            imageSrv.populate();
+                        },
+
+                        sprites: function () {
+                            // @TODO Fill with sprite database info
+                        }
+                    }
                 })
                 .otherwise({
                     redirectTo: '/'

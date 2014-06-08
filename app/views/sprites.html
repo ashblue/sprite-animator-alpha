@@ -46,26 +46,12 @@
         </form>
     </div>
 
-    <div class="row" id="sprite-sheets" ng-controller="SpriteCtrl as sprites">
+    <div class="row" id="sprite-sheets">
         <div class="col-md-6">
-            <h2>Images <small>Alt to uploading an image</small></h2>
-            <input style="margin-bottom: 10px" class="form-control" type="search" ng-model="imageSearch" placeholder="Filter">
-            <div class="list-group" ng-repeat="image in spriteSheet.images | filter:imageSearch">
-                <a href="#" class="list-group-item" ng-click="spriteSheet.showImage($event, image)">
-                    <span class="pull-left" style="margin-right: 10px">
-                        <img ng-src="{{image.src}}" />
-                    </span>
-                    <div class="media-body">
-                        <h4 class="media-heading">{{image.name}}</h4>
-                        Width: {{image.width}}, Height: {{image.height}}
-                        <button ng-click="spriteSheet.editImage($event, image)" class="btn btn-default btn-xs pull-right"><span class="glyphicon glyphicon-edit"></span></button>
-                        <button ng-click="spriteSheet.removeImage($event, image)" style="margin-right: 5px;" class="btn btn-danger btn-xs pull-right"><span class="glyphicon glyphicon-remove"></span></button>
-                    </div>
-                </a>
-            </div>
+            <image-list></image-list>
         </div>
 
-        <div class="col-md-6">
+        <div ng-controller="SpriteCtrl as sprites" class="col-md-6">
             <h2>Sprite Sheets <small>Images ready for animating</small></h2>
             <input style="margin-bottom: 10px" class="form-control" type="search" ng-model="spriteSearch" placeholder="Filter">
             <div class="list-group" ng-repeat="sprite in spriteSheet.sprites | filter:spriteSearch">
