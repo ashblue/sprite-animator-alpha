@@ -3,7 +3,7 @@
 
     var app = angular.module('spriteApp');
 
-    app.controller('UploadCtrl', ['$scope', function ($scope) {
+    app.controller('UploadCtrl', ['$scope', 'zoomSrv', function ($scope, zoomSrv) {
         var controller = this;
         this.imageReady = false;
         var DEFAULT_IMAGE = '//placehold.it/300';
@@ -11,6 +11,13 @@
         // Setup canvas for slicing
         var canvas = document.getElementById('canvas-slice');
         var ctx = canvas.getContext('2d');
+
+        $scope.$on('changeZoom', function (e, scale) {
+            if (controller.upload.imageCanvas) {
+                controller.upload.imageCanvas.draw(scale);
+                controller.setSlice();
+            }
+        });
 
         this.upload = {
             image: DEFAULT_IMAGE,
@@ -32,12 +39,10 @@
         this.setImage = function (image, ready, id) {
             this.upload.image_id = id;
 
-            var zoom = angular.element(document.getElementById('zoom')).scope().zoom;
-
             var $scaledContainer = $('#canvas-upload-preview');
             this.upload.imageCanvas = null;
             this.upload.imageCanvas = new window.SimpleSpriteSheet(image, {
-                scale: zoom.scale,
+                scale: zoomSrv.scale,
                 callback: function ( ){
                     controller.setSlice();
                 }
@@ -70,11 +75,9 @@
         this.setSlice = function () {
             if (!this.imageReady) return;
 
-            var zoom = angular.element(document.getElementById('zoom')).scope().zoom;
-
             var img = document.getElementById('upload-preview');
-            canvas.width = img.naturalWidth * zoom.scale;
-            canvas.height = img.naturalHeight * zoom.scale;
+            canvas.width = img.naturalWidth * zoomSrv.scale;
+            canvas.height = img.naturalHeight * zoomSrv.scale;
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.strokeStyle = '#0ff';
