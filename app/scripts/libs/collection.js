@@ -43,7 +43,7 @@
         }
     };
 
-    Collection.prototype.create = function (data) {
+    Collection.prototype.create = function (data, callback) {
         var collection = this;
 
         if (!this.online) {
@@ -52,6 +52,7 @@
         } else {
             $http.post(this.url).success(function (item) {
                 collection.list.unshift(item);
+                if (callback) callback(item);
             });
         }
 
@@ -59,12 +60,12 @@
     };
 
     Collection.prototype.destroy = function (id) {
-        var image = this.get(id);
-        this.list.splice(this.list.indexOf(image), 1);
-        this.data[image._id] = null;
-        delete this.data[image._id];
+        var item = this.get(id);
+        this.list.splice(this.list.indexOf(item), 1);
+        this.data[item._id] = null;
+        delete this.data[item._id];
 
-        if (this.online) $http.delete(this.url.root + '/' + image._id);
+        if (this.online) $http.delete(this.url.root + '/' + item._id);
 
         return this;
     };

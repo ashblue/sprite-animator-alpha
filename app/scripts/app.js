@@ -15,16 +15,14 @@
                     controller: 'MainCtrl'
                 })
                 .when('/sprites', {
-                    templateUrl: 'views/sprites.html',
-                    controller: 'SpriteCtrl',
-                    controllerAs: 'spriteSheet',
+                    templateUrl: 'views/sprite-sheets.html',
                     resolve: {
                         images: function (imageSrv) {
                             imageSrv.populate();
                         },
 
-                        sprites: function () {
-                            // @TODO Fill with sprite database info
+                        sprites: function (spriteSrv) {
+                            spriteSrv.populate();
                         }
                     }
                 })

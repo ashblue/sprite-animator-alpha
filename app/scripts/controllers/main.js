@@ -11,15 +11,6 @@
         ];
     });
 
-    app.directive('mainNav', function() {
-        return {
-            restrict: 'E',
-            templateUrl: 'views/header.html',
-            controller: 'SpriteHeader',
-            controllerAs: 'header'
-        };
-    });
-
     app.directive('animationManager', function() {
         return {
             restrict: 'E',

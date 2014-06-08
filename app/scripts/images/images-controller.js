@@ -4,9 +4,26 @@
     // Logic for image manager section
     var app = angular.module('spriteApp');
 
-    app.controller('ImageCtrl', function ($scope, imageSrv) {
+    app.controller('ImageCtrl', function ($scope, imageSrv, spriteSrv) {
         var imageCtrl = this;
         this.list = imageSrv.list;
+
+        $scope.$on('parseUpload', function (event, sprite) {
+            // @TODO Create image via service
+            if (!sprite.image_id) {
+                imageSrv.create({
+                    name: sprite.name + ' image',
+                    image: sprite.image,
+                    width: sprite.imageCanvas.canvas.width,
+                    height: sprite.imageCanvas.canvas.height
+                }, function (item) {
+                    sprite.image = item._id;
+                    $scope.$emit('createSprite', sprite);
+                });
+            } else {
+                $scope.$emit('createSprite', sprite);
+            }
+        });
 
         // Inject the chosen image into the upload details
         // @TODO On the fence with this, feels more like it should be converted to an event emitter
@@ -30,12 +47,14 @@
 
             imageSrv.destroy(image._id);
 
-            // @TODO Force remove any sprite sheets referencing this image
-//            for (var i = 0, l = this.sprites.length; i < l; i++) {
-//                if (this.sprites[i].image === removedImage._id) {
-//                    this.removeSprite(null, this.sprites[i]);
-//                }
-//            }
+            // Force remove any sprite sheets referencing this image
+            var sprites = [];
+            spriteSrv.list.forEach(function (sprite) {
+                if (sprite.image === image._id) {
+                    sprites.push(sprite._id);
+                }
+            });
+            sprites.forEach(function (id) { spriteSrv.destroy(id); });
         };
     });
 
