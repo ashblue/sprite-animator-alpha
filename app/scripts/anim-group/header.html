@@ -1,7 +1,13 @@
 <div id="animation-manager-header">
     <i class="fa fa-film"></i>
-    {{animGroup.current.name}} <span class="label label-default">Jump</span>
-    <button title="Toggle visibility of animation group settings" class="btn btn-default pull-right btn-xs"><i class="fa fa-gear"></i></button>
+    {{animGroup.current.name}} <span class="label label-default">{{animCtrl.current.name}}</span>
+    <button
+        ng-class="{ active: animGroup.showSettings }"
+        ng-click="animGroup.toggleSettings()"
+        title="Toggle visibility of animation group settings"
+        class="btn btn-default pull-right btn-xs">
+        <i class="fa fa-gear"></i>
+    </button>
     <button
         ng-class="{ active: animGroup.show }"
         ng-click="animGroup.toggle()"

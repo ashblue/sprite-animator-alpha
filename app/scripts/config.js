@@ -1,5 +1,6 @@
 (function () {
     window.CONFIG = {
+        // Toggle this property on for server interaction. WARNING All root urls must point to a real database API
         online: false,
 
         images: {
@@ -14,6 +15,10 @@
 
         animationGroups: {
             root: '/data/animation-groups.json'
+        },
+
+        animations: {
+            root: '/data/animations.json'
         }
     };
 }());

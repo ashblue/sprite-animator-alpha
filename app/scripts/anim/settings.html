@@ -1,0 +1,13 @@
+<div ng-show="animCtrl.current">
+    <h4>Current Animation Properties</h4>
+    <form>
+        <div class="form-group">
+            <label for="animation-name">Name</label>
+            <input ng-model="animCtrl.current.name" id="animation-name" class="form-control input-sm" type="text" value="Jump" />
+        </div>
+        <div class="form-group">
+            <label for="animation-frame-duration">Frame Duration (seconds)</label>
+            <input ng-model="animCtrl.current.speed" id="animation-frame-duration" class="form-control input-sm" type="number" min="0.01" />
+        </div>
+    </form>
+</div>

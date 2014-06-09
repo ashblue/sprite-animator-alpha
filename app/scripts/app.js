@@ -24,6 +24,10 @@
 
                         animationGroups: function (animGroupSrv) {
                             animGroupSrv.populate();
+                        },
+
+                        animations: function (animSrv) {
+                            animSrv.populate();
                         }
                     }
                 })

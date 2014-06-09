@@ -3,45 +3,29 @@
         "name": "Coal",
         "_id": "1a",
         "animations": [
-            1,
-            2,
-            3
+            "1a",
+            "2a",
+            "3a"
         ]
     },
     {
         "name": "Coal",
         "_id": "2a",
-        "animations": [
-            1,
-            2,
-            3
-        ]
+        "animations": []
     },
     {
         "name": "Coal",
         "_id": "3a",
-        "animations": [
-            1,
-            2,
-            3
-        ]
+        "animations": []
     },
     {
         "name": "Coal",
         "_id": "4a",
-        "animations": [
-            1,
-            2,
-            3
-        ]
+        "animations": []
     },
     {
         "name": "Coal",
         "_id": "5a",
-        "animations": [
-            1,
-            2,
-            3
-        ]
+        "animations": []
     }
 ]

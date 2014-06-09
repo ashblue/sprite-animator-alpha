@@ -6,6 +6,7 @@
 
     app.factory('animGroupSrv', function ($http) {
         var animGroupSrv = new window.sa.Collection(CONFIG.animationGroups.root, $http);
+        animGroupSrv.current = {};
         return animGroupSrv;
     });
 })();

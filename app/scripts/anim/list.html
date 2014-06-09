@@ -1,0 +1,28 @@
+<div ng-show="animCtrl.show">
+    <h4>
+        Animations
+        <button ng-click="animCtrl.new()" class="btn btn-primary btn-xs"><span class="fa fa-plus-circle"></span></button>
+    </h4>
+    <p>Available animations associated with this group.</p>
+
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Speed</th>
+            <th>Layers</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="anim in animCtrl.list">
+            <td>{{anim.name}}</td>
+            <td>{{anim.speed}}s</td>
+            <td>{{anim.timelines.length}}</td>
+            <td>
+                <button ng-click="animCtrl.set(anim)" class="btn-default btn btn-xs pull-right"><i class="fa fa-pencil"></i></button>
+            </td>
+            <td>
+                <button ng-click="animCtrl.remove(anim)" class="btn-danger btn btn-xs pull-right"><i class="fa fa-trash-o"></i></button>
+            </td>
+        </tr>
+    </table>
+</div>

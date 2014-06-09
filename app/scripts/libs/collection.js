@@ -46,6 +46,18 @@
         }
     };
 
+    Collection.prototype.addDirt = function (id) {
+        var collection = this;
+        var item = this.get(id);
+
+        if (this.online) {
+            if (this.timeout[id]) this.timeout[id].clearTimeout();
+            this.timeout[id] = window.setTimeout(function () {
+                collection.$http.put(collection.url + '/' + id, item);
+            }, 1000);
+        }
+    };
+
     Collection.prototype.create = function (data, callback) {
         var collection = this;
 

@@ -4,15 +4,11 @@
     // Logic for image manager section
     var app = angular.module('spriteApp');
 
-    app.controller('AnimGroup', function ($scope, animGroupSrv) {
+    app.controller('AnimGroup', function ($scope, animGroupSrv, animSrv) {
         var animGroupCtrl = this;
-        this.current = animGroupSrv.list[0] || {}; // Currently selected animation group
         this.show = false; // Show the manager
+        this.showSettings = false; // Show the settings
         this.list = animGroupSrv.list;
-
-        $scope.$on('animGroupClose', function () {
-            animGroupCtrl.show = false;
-        });
 
         this.new = function () {
             animGroupSrv.create({
@@ -23,14 +19,30 @@
 
         this.set = function (item) {
             this.current = item;
+            animGroupSrv.current = item;
+            $scope.$emit('setAnimGroup', item);
         };
+        this.set(animGroupSrv.current);
 
         this.remove = function (item) {
+            if (item._id === animGroupSrv.current._id) this.set({});
             animGroupSrv.destroy(item._id);
+            $scope.$emit('clearAnimationGroup');
+
+            // @TODO Find all animations, timelines, and frames. Then delete them
+            item.animations.forEach(function (id) {
+                animSrv.destroy(id);
+            });
         };
 
         this.toggle = function (e) {
             this.show = !this.show;
+            this.showSettings = false;
+        };
+
+        this.toggleSettings = function () {
+            this.showSettings = !this.showSettings;
+            this.show = false;
         };
     });
 
@@ -51,4 +63,13 @@
             controllerAs: 'animGroup'
         };
     });
+
+//    app.directive('animationGroupSprites', function() {
+//        return {
+//            restrict: 'E',
+//            templateUrl: 'scripts/anim-group/anim-sprites.html',
+//            controller: 'AnimGroup',
+//            controllerAs: 'animGroup'
+//        };
+//    });
 })();

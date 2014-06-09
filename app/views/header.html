@@ -14,7 +14,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li id="zoom" ng-controller="SpriteZoom as zoom">
                     <span ng-class="scaleValue" id="scale-value">{{zoom.scale}}</span>
-                    <input ng-click="scaleValue='active'" ng-blur="scaleValue=''" ng-model="zoom.scale" ng-change="zoom.setScale()" type="range" id="scale-range" min="1" max="4">
+                    <input ng-mousedown="scaleValue='active'" ng-blur="scaleValue=''" ng-model="zoom.scale" ng-change="zoom.setScale()" type="range" id="scale-range" min="1" max="4">
                 </li>
                 <li ng-class="{ active: header.isActive('/') }"><a ng-href="#">Animations</a></li>
                 <li ng-class="{ active: header.isActive('/sprites') }"><a ng-href="#/sprites">Sprite Sheets</a></li>
