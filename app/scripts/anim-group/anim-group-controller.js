@@ -24,6 +24,15 @@
         };
         this.set(animGroupSrv.current);
 
+        // @TODO Temporary debug method to autofill on load, could be more re-usable
+        if (CONFIG.debug) {
+            window.setTimeout(function () {
+                $scope.$apply(function () {
+                    if (animGroupCtrl.list.length > 0) animGroupCtrl.set(animGroupCtrl.list[0]);
+                });
+            }, 500);
+        }
+
         this.remove = function (item) {
             if (item._id === animGroupSrv.current._id) this.set({});
             animGroupSrv.destroy(item._id);
@@ -58,9 +67,7 @@
     app.directive('animationGroupHeader', function() {
         return {
             restrict: 'E',
-            templateUrl: 'scripts/anim-group/header.html',
-            controller: 'AnimGroup',
-            controllerAs: 'animGroup'
+            templateUrl: 'scripts/anim-group/header.html'
         };
     });
 

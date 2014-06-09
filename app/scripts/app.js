@@ -28,6 +28,10 @@
 
                         animations: function (animSrv) {
                             animSrv.populate();
+                        },
+
+                        timelines: function (timelineSrv) {
+                            timelineSrv.populate();
                         }
                     }
                 })

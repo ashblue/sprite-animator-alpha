@@ -1,7 +1,7 @@
 [
     {
-        "name": "Single Frame Animation",
-        "_id": "single-frame-animation",
+        "name": "Barrel",
+        "_id": "barrel",
         "image": "single-image1",
         "width": 22,
         "height": 11

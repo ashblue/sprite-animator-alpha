@@ -10,7 +10,6 @@
         this.list = null; // Current animation list
         this.show = false;
 
-        // @TODO On animGroupSrv.current change we need to populate the list
         $scope.$on('setAnimGroup', function (e, animationGroup) {
             animCtrl.list = null;
             animCtrl.current = null;
@@ -22,11 +21,13 @@
                 list.push(animSrv.get(id));
             });
 
+            if (CONFIG.debug) { animCtrl.set(list[0]); }
             animCtrl.list = list;
         });
 
         this.set = function (anim) {
             this.current = anim;
+            $scope.$emit('setAnim', anim);
         };
 
         this.new = function () {
@@ -35,7 +36,6 @@
                 "speed": 0.3,
                 "timelines": []
             }, function (anim) {
-                // @TODO We need a special collection method to set an ID to dirty so the server reads this array change
                 animCtrl.list.unshift(anim);
                 animGroupSrv.current.animations.push(anim._id);
                 animGroupSrv.addDirt(animGroupSrv.current._id);
@@ -73,9 +73,7 @@
     app.directive('animationSettings', function() {
         return {
             restrict: 'E',
-            templateUrl: 'scripts/anim/settings.html',
-            controller: 'AnimCtrl',
-            controllerAs: 'animCtrl'
+            templateUrl: 'scripts/anim/settings.html'
         };
     });
 })();

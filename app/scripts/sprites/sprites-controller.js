@@ -3,9 +3,11 @@
 
     var app = angular.module('spriteApp');
 
-    app.controller('SpriteCtrl', ['$scope', '$http', 'spriteSrv', 'imageSrv', function ($scope, $http, spriteSrv, imageSrv) {
+    app.controller('SpriteCtrl', ['$scope', '$http', '$routeParams', 'spriteSrv', 'imageSrv', function ($scope, $http, $routeParams, spriteSrv, imageSrv) {
         var spriteCtrl = this;
         this.list = spriteSrv.list;
+        $scope.spriteSearch = $routeParams.spriteSearch; // Force filter if URL param is available
+
 
         // Expects sprite sheet data from the upload form
         $scope.$on('createSprite', function (event, sprite) {

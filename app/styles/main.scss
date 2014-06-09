@@ -319,10 +319,13 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
         height: 100%;
       }
 
-      input {
+      .name {
         background: transparent;
         border: none;
         width: 120px;
+        overflow: hidden;
+        display: inline-block;
+        white-space: nowrap;
 
         &:hover {
           outline: #777 1px solid;

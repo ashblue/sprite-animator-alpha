@@ -1,0 +1,28 @@
+<div class="timeline-content">
+    <div ng-repeat="layer in timelinesCtrl.list | orderBy:'zIndex'" data-id="{{layer._id}}" draggable="true" drag-and-drop-timelines class="layer-details">
+        <div class="protect-input"></div>
+        <span class="name">{{layer.name}}</span>
+
+        <span title="Toggle visible to hide in visual view" class="group pull-right">
+            <i class="fa fa-eye"></i>
+            <i class="fa fa-eye-slash hide"></i>
+        </span>
+
+        <span title="Toggle lock to disable interactions" class="group pull-right">
+            <i class="fa fa-lock"></i>
+            <i class="fa fa-unlock hide"></i>
+        </span>
+
+        <span title="Set axis of rotation" class="group pull-right">
+            <i class="fa fa-crosshairs"></i>
+        </span>
+
+        <span ng-click="timelinesCtrl.showImage(layer)" title="View attached sprite details" class="group pull-right">
+            <i class="fa fa-picture-o"></i>
+        </span>
+
+        <span ng-click="timelinesCtrl.setName($event, layer)" title="Change layer name" class="group pull-right">
+            <i class="fa fa-edit"></i>
+        </span>
+    </div>
+</div>
