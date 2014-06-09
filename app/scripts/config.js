@@ -10,6 +10,10 @@
         sprites: {
             // Also replace with a real url
             root: '/data/sprites.json'
+        },
+
+        animationGroups: {
+            root: '/data/animation-groups.json'
         }
     };
 }());

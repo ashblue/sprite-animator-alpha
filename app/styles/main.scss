@@ -6,6 +6,11 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
 @import "../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
 
+#animation-manager {
+  position: relative;
+  z-index: 1;
+}
+
 #dat-gui {
   position: fixed;
   right: 0;

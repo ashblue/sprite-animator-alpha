@@ -1,64 +1,10 @@
 <div class="container">
-    <div class="panel panel-default">
+    <div id="animation-manager" class="panel panel-default">
         <div class="panel-heading">
-            <i class="fa fa-film"></i>
-            Coal <span class="label label-default">Jump</span>
-            <button title="Toggle visibility of animation group settings" class="btn btn-default pull-right btn-xs"><i class="fa fa-gear"></i></button>
-            <button title="Change current animation group" style="margin-right: 5px;" class="btn btn-default pull-right btn-xs"><i class="fa fa-folder-open"></i></button>
+            <animation-group-header></animation-group-header>
         </div>
 
-        <div id="animation-group-manager" class="panel-body hide">
-            <h4>
-                Animation Groups
-                <button class="btn btn-primary btn-xs"><span class="fa fa-plus-circle"></span></button>
-            </h4>
-            <p>All available animation groups.</p>
-
-            <table class="table">
-                <tr>
-                    <th>Name</th>
-                    <th>Animations</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <td>
-                        <input class="form-control input-sm" type="text" required value="Group" />
-                    </td>
-                    <td>3</td>
-                    <td>
-                        <button class="btn-default btn btn-xs pull-right"><i class="fa fa-pencil"></i></button>
-                    </td>
-                    <td>
-                        <button class="btn-danger btn btn-xs pull-right"><i class="fa fa-trash-o"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input class="form-control input-sm" type="text" required value="Group" />
-                    </td>
-                    <td>3</td>
-                    <td>
-                        <button class="btn-default btn btn-xs pull-right"><i class="fa fa-pencil"></i></button>
-                    </td>
-                    <td>
-                        <button class="btn-danger btn btn-xs pull-right"><i class="fa fa-trash-o"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input class="form-control input-sm" type="text" required value="Group" />
-                    </td>
-                    <td>3</td>
-                    <td>
-                        <button class="btn-default btn btn-xs pull-right"><i class="fa fa-pencil"></i></button>
-                    </td>
-                    <td>
-                        <button class="btn-danger btn btn-xs pull-right"><i class="fa fa-trash-o"></i></button>
-                    </td>
-                </tr>
-            </table>
-        </div>
+        <animation-group-manager></animation-group-manager>
 
         <div id="animation-group-settings" class="panel-body hide">
             <!-- @TODO Hide if no animation is currently set -->

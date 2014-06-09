@@ -12,7 +12,20 @@
             $routeProvider
                 .when('/', {
                     templateUrl: 'views/main.html',
-                    controller: 'MainCtrl'
+                    controller: 'MainCtrl',
+                    resolve: {
+                        images: function (imageSrv) {
+                            imageSrv.populate();
+                        },
+
+                        sprites: function (spriteSrv) {
+                            spriteSrv.populate();
+                        },
+
+                        animationGroups: function (animGroupSrv) {
+                            animGroupSrv.populate();
+                        }
+                    }
                 })
                 .when('/sprites', {
                     templateUrl: 'views/sprite-sheets.html',

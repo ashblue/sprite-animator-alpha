@@ -12,11 +12,14 @@
         this.timeout = {};
         this.sync = {};
         this._id = 0; // ID stubs for offline mode
+        this.ready = false; // Gurantees that population will only run 1x
     };
 
     // Should only be called via a resolve method for pre-loading
     Collection.prototype.populate = function () {
+        if (this.ready) return;
         var collection = this;
+        this.ready = true;
 
         this.$http.get(this.url).success(function (list) {
             list.forEach(function (item) { collection.data[item._id] = item; });

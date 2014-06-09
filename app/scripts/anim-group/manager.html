@@ -1,0 +1,29 @@
+<div class="panel-body" id="animation-group-manager" ng-show="animGroup.show">
+    <h4>
+        Animation Groups
+        <button ng-click="animGroup.new()" class="btn btn-primary btn-xs"><span class="fa fa-plus-circle"></span></button>
+    </h4>
+    <p>All available animation groups.</p>
+
+    <!-- @TODO Add a filter for quick searches -->
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Animations</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="group in animGroup.list">
+            <td>
+                <input ng-model="group.name" class="form-control input-sm" type="text" required value="Group" />
+            </td>
+            <td>{{group.animations.length}}</td>
+            <td>
+                <button ng-click="animGroup.set(group)" class="btn-default btn btn-xs pull-right"><i class="fa fa-pencil"></i></button>
+            </td>
+            <td>
+                <button ng-click="animGroup.remove(group)" class="btn-danger btn btn-xs pull-right"><i class="fa fa-trash-o"></i></button>
+            </td>
+        </tr>
+    </table>
+</div>
