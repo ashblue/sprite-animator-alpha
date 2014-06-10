@@ -14,6 +14,7 @@
     app.controller('TimelinesCtrl', function ($scope, animSrv, timelineSrv, spriteSrv) {
         var timelinesCtrl = this;
         this.list = [];
+        this.selected = null;
 
         $scope.$on('setAnim', function (e, anim) {
             timelinesCtrl.list = [];
@@ -52,8 +53,12 @@
         };
 
         // Set the clicked item to active and strip active from all exiting items
-        this.setActive = function () {
+        this.setSelected = function (timeline) {
+            this.selected = timeline._id;
+        };
 
+        this.isSelected = function (timeline) {
+            return this.selected === timeline._id;
         };
 
         // Find the corresponding sprite sheet and dumps the user on it

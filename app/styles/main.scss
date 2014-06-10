@@ -311,6 +311,10 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
       border-bottom: 1px solid #444;
       position: relative;
 
+      &.active {
+        background: #20729b;
+      }
+
       .protect-input {
         position: absolute;
         top: 0;

@@ -1,5 +1,10 @@
 <div class="timeline-content">
-    <div ng-repeat="layer in timelinesCtrl.list | orderBy:'zIndex'" data-id="{{layer._id}}" draggable="true" drag-and-drop-timelines class="layer-details">
+    <div ng-repeat="layer in timelinesCtrl.list | orderBy:'zIndex'"
+         data-id="{{layer._id}}" draggable="true"
+         drag-and-drop-timelines
+         ng-click="timelinesCtrl.setSelected(layer)"
+         ng-class="{ active: timelinesCtrl.isSelected(layer) }"
+         class="layer-details" >
         <div class="protect-input"></div>
         <span class="name">{{layer.name}}</span>
 
