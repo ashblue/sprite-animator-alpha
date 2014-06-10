@@ -8,14 +8,14 @@
         <div class="protect-input"></div>
         <span class="name">{{layer.name}}</span>
 
-        <span title="Toggle visible to hide in visual view" class="group pull-right">
-            <i class="fa fa-eye"></i>
-            <i class="fa fa-eye-slash hide"></i>
+        <span ng-click="timelinesCtrl.toggleShow($event, layer)" title="Toggle visible to hide in visual view" class="group pull-right">
+            <i ng-show="layer.show" class="fa fa-eye"></i>
+            <i ng-hide="layer.show" class="fa fa-eye-slash"></i>
         </span>
 
-        <span title="Toggle lock to disable interactions" class="group pull-right">
-            <i class="fa fa-lock"></i>
-            <i class="fa fa-unlock hide"></i>
+        <span ng-click="timelinesCtrl.toggleLock($event, layer)" title="Toggle lock to disable interactions" class="group pull-right">
+            <i ng-hide="layer.lock" class="fa fa-lock"></i>
+            <i ng-show="layer.lock" class="fa fa-unlock-alt"></i>
         </span>
 
         <span title="Set axis of rotation" class="group pull-right">

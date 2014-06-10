@@ -6,7 +6,7 @@
         "frames": [],
         "zIndex": 1,
         "lock": false,
-        "visible": false
+        "show": true
     },
 
     {
@@ -16,7 +16,7 @@
         "frames": [],
         "zIndex": 0,
         "lock": false,
-        "visible": false
+        "show": true
     },
 
     {
@@ -26,6 +26,6 @@
         "frames": [],
         "zIndex": 2,
         "lock": false,
-        "visible": false
+        "show": true
     }
 ]

@@ -52,6 +52,19 @@
             timeline.zIndex = zIndex;
         };
 
+        this.toggleLock = function (e, timeline) {
+            e.preventDefault();
+            e.stopPropagation();
+            timelineSrv.set(timeline._id, 'lock', !timeline.lock);
+            console.log(timeline.lock);
+        };
+
+        this.toggleShow = function (e, timeline) {
+            e.preventDefault();
+            e.stopPropagation();
+            timelineSrv.set(timeline._id, 'show', !timeline.show);
+        };
+
         // Set the clicked item to active and strip active from all exiting items
         this.setSelected = function (timeline) {
             this.selected = timeline._id;
