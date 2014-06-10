@@ -32,8 +32,11 @@
             });
         });
 
+        $scope.$on('selectSprite', function (e, sprite) {
+            timelinesCtrl.add(sprite);
+        });
+
         this.setPos = function (id, zIndex) {
-            console.log(id, zIndex);
             var timeline = timelineSrv.get(id);
 
             // For each timeline in the list with this.zIndex >= zIndex
@@ -87,6 +90,30 @@
             var name = prompt('Enter Name', timeline.name);
             if (name && name !== '') timelineSrv.set(timeline._id, 'name', name);
         };
+
+        this.removeSelected = function () {
+            if (!this.selected) return;
+            this.list.erase(timelineSrv.get(this.selected));
+            timelineSrv.destroy(this.selected);
+            this.selected = null;
+        };
+
+        this.showSprite = function () {
+            $('#sprite-modal').modal('show');
+        };
+
+        this.add = function (sprite) {
+            timelineSrv.create({
+                name: sprite.name,
+                sprite: sprite._id,
+                frames: [],
+                zIndex: this.list.length,
+                lock: false,
+                show: true
+            }, function (item) {
+                timelinesCtrl.list.push(item);
+            });
+        };
     });
 
     app.directive('dragAndDropTimelines', function (timelineSrv) {
@@ -109,12 +136,20 @@
         };
     });
 
+    // @TODO Move controller declaration into the file somewhere
     app.directive('timelineLayers', function() {
         return {
             restrict: 'E',
             templateUrl: 'scripts/timelines/layers.html',
             controller: 'TimelinesCtrl',
             controllerAs: 'timelinesCtrl'
+        };
+    });
+
+    app.directive('timelineToolbar', function() {
+        return {
+            restrict: 'E',
+            templateUrl: 'scripts/timelines/toolbar.html'
         };
     });
 })();
