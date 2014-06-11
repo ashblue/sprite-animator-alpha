@@ -45,6 +45,13 @@
         this.isHitBoxVisible = function () {
             return CONFIG.hitBoxVisible;
         };
+
+        $scope.$on('changeZoom', function (e, scale) {
+            // Access all images on zoom change here so the DOM can be responsible for tracking everything
+            $('animation-image').each(function () {
+                this.sprite.setScale(scale);
+            });
+        });
     }]);
 
     app.directive('resizeStage', ['animGroupSrv', 'zoomSrv', function (animGroupSrv, zoomSrv) {
@@ -84,24 +91,30 @@
                 $(window).bind('mouseup', function () {
                     drag = false;
                 });
-
-//                el[0].ondragstart = function (e) {
-//                    e.dataTransfer.setData('id', attr.id);
-//                };
-//
-//                el[0].ondrop = function (e) {
-//                    var id = e.dataTransfer.getData('id');
-//                    var zIndex = $(this).index(0);
-//                    $scope.$emit('setTimelineLayerPos', id, zIndex);
-//                };
-//
-//                el.bind('dragover', _event.disable);
-//                el.bind('dragenter', _event.disable);
             }
         };
     }]);
 
-    app.directive('animationTimelineImages', function() {
+    app.directive('animationImage',
+        ['$rootScope', 'imageSrv', 'spriteSrv', 'zoomSrv', function ($rootScope, imageSrv, spriteSrv, zoomSrv) {
+            return {
+            restrict: 'E',
+            transclude: true,
+            link: function ($scope, el, attr) {
+                var sprite = spriteSrv.get(attr.sprite);
+                var anim = new SimpleSprite(attr.src, sprite.width, sprite.height, {
+                    scale: zoomSrv.scale,
+                    target: el.get(0)
+                });
+
+                // Store the canvas in the DOM so it can be accessed at a later date
+                // @NOTE Do not bind global $scope events here as they will not be cleaned out of memory
+                el.get(0).sprite = anim;
+            }
+        };
+    }]);
+
+    app.directive('animationTimelineImages', function () {
         return {
             restrict: 'E',
             templateUrl: 'scripts/timelines/images.html',

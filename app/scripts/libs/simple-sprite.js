@@ -68,12 +68,12 @@
                 this.canvas = this.target;
             } else {
                 this.canvas = document.createElement('canvas');
-                this.target.appendChild(canvas);
+                this.target.appendChild(this.canvas);
             }
 
         } else { // Assumed target is a parent element
             this.canvas = document.createElement('canvas');
-            this.target.appendChild(canvas);
+            this.target.appendChild(this.canvas);
         }
 
         this.setCanvas(width, height, this.scale);

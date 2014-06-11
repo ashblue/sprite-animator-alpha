@@ -3,21 +3,21 @@
         "name": "Barrel",
         "_id": "barrel",
         "image": "single-image1",
-        "width": 22,
-        "height": 11
+        "width": 11,
+        "height": 16
     },
     {
         "name": "Single Frame Animation",
         "_id": "single-frame-animation1",
         "image": "single-image1",
-        "width": 22,
-        "height": 11
+        "width": 11,
+        "height": 16
     },
     {
         "name": "Single Frame Animation",
         "_id": "single-frame-animation2",
         "image": "single-image1",
-        "width": 22,
-        "height": 11
+        "width": 11,
+        "height": 16
     }
 ]
