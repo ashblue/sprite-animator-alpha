@@ -7,11 +7,11 @@
         "src": "images/barrel.png"
     },
     {
-        "name": "Single Frame Image",
-        "_id": "single-image2",
-        "width": 11,
-        "height": 16,
-        "src": "images/barrel.png"
+        "name": "Coal Image",
+        "_id": "coal-image",
+        "width": 240,
+        "height": 138,
+        "src": "images/coal.png"
     },
     {
         "name": "Single Frame Image",

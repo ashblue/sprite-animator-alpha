@@ -3,7 +3,9 @@
 
     var app = angular.module('spriteApp');
 
-    app.controller('SpriteCtrl', ['$scope', '$http', '$routeParams', 'spriteSrv', 'imageSrv', function ($scope, $http, $routeParams, spriteSrv, imageSrv) {
+    app.controller('SpriteCtrl',
+    ['$scope', '$http', '$routeParams', 'spriteSrv', 'imageSrv', 'zoomSrv',
+    function ($scope, $http, $routeParams, spriteSrv, imageSrv, zoomSrv) {
         var spriteCtrl = this;
         this.list = spriteSrv.list;
         $scope.spriteSearch = $routeParams.spriteSearch; // Force filter if URL param is available
@@ -14,8 +16,8 @@
             spriteSrv.create({
                 name: sprite.name,
                 image: sprite.image,
-                width: sprite.imageCanvas.canvas.width / sprite.cols,
-                height: sprite.imageCanvas.canvas.height / sprite.rows
+                width: sprite.imageCanvas.canvas.width / zoomSrv.scale / sprite.cols,
+                height: sprite.imageCanvas.canvas.height / zoomSrv.scale / sprite.rows
             });
         });
 

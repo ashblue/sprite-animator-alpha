@@ -4,7 +4,7 @@
     // Logic for image manager section
     var app = angular.module('spriteApp');
 
-    app.controller('ImageCtrl', function ($scope, imageSrv, spriteSrv) {
+    app.controller('ImageCtrl', function ($scope, imageSrv, spriteSrv, zoomSrv) {
         var imageCtrl = this;
         this.list = imageSrv.list;
 
@@ -13,8 +13,8 @@
                 imageSrv.create({
                     name: sprite.name + ' image',
                     src: sprite.image,
-                    width: sprite.imageCanvas.canvas.width,
-                    height: sprite.imageCanvas.canvas.height
+                    width: sprite.imageCanvas.canvas.width / zoomSrv.scale,
+                    height: sprite.imageCanvas.canvas.height / zoomSrv.scale
                 }, function (item) {
                     sprite.image = item._id;
                     $scope.$emit('createSprite', sprite);
