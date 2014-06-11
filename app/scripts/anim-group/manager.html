@@ -10,6 +10,8 @@
         <tr>
             <th>Name</th>
             <th>Animations</th>
+            <th>Width</th>
+            <th>Height</th>
             <th></th>
             <th></th>
         </tr>
@@ -18,6 +20,8 @@
                 <input ng-model="group.name" class="form-control input-sm" type="text" required value="Group" />
             </td>
             <td>{{group.animations.length}}</td>
+            <td>{{group.width}}</td>
+            <td>{{group.height}}</td>
             <td>
                 <button ng-click="animGroup.set(group)" class="btn-default btn btn-xs pull-right"><i class="fa fa-pencil"></i></button>
             </td>

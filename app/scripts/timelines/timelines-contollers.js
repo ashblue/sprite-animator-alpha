@@ -13,11 +13,12 @@
 
     app.controller('TimelinesCtrl', function ($scope, animSrv, timelineSrv, spriteSrv) {
         var timelinesCtrl = this;
-        this.list = [];
+        this.list = timelineSrv.current;
         this.selected = null;
 
         $scope.$on('setAnim', function (e, anim) {
-            timelinesCtrl.list = [];
+            // Erase current array without destroying its memory reference (maintains array watch across controllers)
+            timelinesCtrl.list.splice(0, timelinesCtrl.list.length);
             if (!anim || !anim._id) return;
 
             anim.timelines.forEach(function (id) {
@@ -100,6 +101,10 @@
 
         this.showSprite = function () {
             $('#sprite-modal').modal('show');
+        };
+
+        this.toggleHitbox = function () {
+            CONFIG.hitBoxVisible = !CONFIG.hitBoxVisible;
         };
 
         this.add = function (sprite) {

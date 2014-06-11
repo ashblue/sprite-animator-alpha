@@ -1,0 +1,9 @@
+<!-- @TODO Rename file stage.html -->
+<div class="animation-stage-container" ng-style="timelineImagesCtrl.getStage()">
+    <img class="stage-image"
+         ng-repeat="timelineItem in timelineImagesCtrl.list"
+         ng-src="{{timelineImagesCtrl.getImage(timelineItem.sprite)}}" />
+    <div ng-show="timelineImagesCtrl.isHitBoxVisible()" class="hitbox" ng-style="timelineImagesCtrl.getHitBox()">
+        <span resize-stage class="handle"></span>
+    </div>
+</div>

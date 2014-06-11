@@ -364,3 +364,45 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
   }
 }
 
+.test-block {
+  display: block;
+  width: 200px;
+  height: 200px;
+}
+
+.animation-stage-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -50px 0 0 -50px;
+
+  .hitbox {
+    opacity: 0.3;
+    background: #f00;
+    outline: 1px dashed #333;
+    position: relative;
+
+    .handle {
+      display: block;
+      background: #080;
+      width: 10px;
+      height: 10px;
+      border-radius: 10px;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      margin: 0 -5px -5px 0;
+      cursor: move;
+
+      &:hover {
+        background: #0f0;
+      }
+    }
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}

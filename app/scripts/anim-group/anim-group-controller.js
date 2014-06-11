@@ -13,6 +13,8 @@
         this.new = function () {
             animGroupSrv.create({
                 name: 'Untitled',
+                width: CONFIG.animationGroups.defaultWidth,
+                height: CONFIG.animationGroups.defaultHeight,
                 animations: []
             });
         };

@@ -6,26 +6,36 @@
             "1a",
             "2a",
             "3a"
-        ]
+        ],
+        "width": 20,
+        "height": 20
     },
     {
         "name": "Coal",
         "_id": "2a",
-        "animations": []
+        "animations": [],
+        "width": 20,
+        "height": 20
     },
     {
         "name": "Coal",
         "_id": "3a",
-        "animations": []
+        "animations": [],
+        "width": 20,
+        "height": 20
     },
     {
         "name": "Coal",
         "_id": "4a",
-        "animations": []
+        "animations": [],
+        "width": 20,
+        "height": 20
     },
     {
         "name": "Coal",
         "_id": "5a",
-        "animations": []
+        "animations": [],
+        "width": 20,
+        "height": 20
     }
 ]
