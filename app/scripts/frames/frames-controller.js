@@ -6,6 +6,11 @@
     app.controller('FramesCtrl', function ($scope, timelineSrv, frameSrv) {
         this.listTimelines = timelineSrv.current;
         var disabled = false;
+        var ctrl = this;
+
+        $scope.$on('removeFrame', function (e, frame) {
+            ctrl.removeKeyframe(frame);
+        });
 
         this.addKeyframe = function (e, timeline) {
             if (disabled) return;
@@ -16,6 +21,7 @@
 
             frameSrv.create({
                 index: index,
+                timeline: timeline._id,
                 frame: 0,
                 x: 0,
                 y: 0,
@@ -34,6 +40,9 @@
         };
 
         this.select = function (frame) {
+            // Frame already selected? Show the context menu
+            if (frameSrv.current === frame) this.showContext(frame);
+
             frameSrv.current = frame;
             $scope.$emit('setFrame', frame);
 
@@ -43,19 +52,31 @@
             // Delete
         };
 
+        // Shows a context menu for the passed frame
+        this.showContext = function (frame) {
+            $scope.$emit('showFrameContext', frame);
+        };
+
+        // Wipe the current active frame from memory
         this.clear = function () {
             frameSrv.current = null;
             $scope.$emit('clearFrame', frame);
         }
 
+        // Is the current frame active?
         this.isActive = function (frame) {
             return (frameSrv.current ? frameSrv.current._id === frame._id : false);
         };
 
-        this.removeKeyframe = function (e) {
+        // Destory a key frame
+        this.removeKeyframe = function (frame) {
+            var timeline = timelineSrv.get(frame.timeline);
+            timeline.frames.erase(frame._id);
+            frameSrv.destroy(frame._id);
             // Delete from current
         };
 
+        // Calculates the correct position for a frame since they're all free floating
         this.getPos = function (frame) {
             var $tick = $('.tick-background .tick:first');
             return {
@@ -64,6 +85,7 @@
             };
         };
 
+        // Runs a populate command to get all the frames
         this.getFrames = function (timeline) {
             var frames = timeline.frames;
             return timeline.frames.map(function (id) {

@@ -11,7 +11,7 @@
         }
     };
 
-    app.controller('TimelinesCtrl', function ($scope, animSrv, timelineSrv, spriteSrv) {
+    app.controller('TimelinesCtrl', function ($scope, animSrv, timelineSrv, spriteSrv, frameSrv) {
         var timelinesCtrl = this;
         this.list = timelineSrv.current;
         this.selected = null;
@@ -94,7 +94,14 @@
 
         this.removeSelected = function () {
             if (!this.selected) return;
-            this.list.erase(timelineSrv.get(this.selected));
+
+            // Clean out all existing frames
+            var timeline = timelineSrv.get(this.selected);
+            timeline.frames.forEach(function (id) {
+                $scope.$emit('removeFrame', frameSrv.get(id));
+            });
+
+            this.list.erase(timeline);
             timelineSrv.destroy(this.selected);
             this.selected = null;
         };
@@ -115,8 +122,25 @@
                 zIndex: this.list.length,
                 lock: false,
                 show: true
-            }, function (item) {
-                timelinesCtrl.list.push(item);
+            }, function (timeline) {
+                frameSrv.create({
+                    "timeline": timeline._id,
+                    "index": 0,
+                    "frame": 0,
+                    "x": 0,
+                    "y": 0,
+                    "alpha": 1,
+                    "pivotX": 0,
+                    "pivotY": 0,
+                    "angle": 0,
+                    "length": 1,
+                    "flipX": false,
+                    "flipY": false,
+                    "lock": true
+                }, function (frame) {
+                    timeline.frames.push(frame._id);
+                    timelinesCtrl.list.push(timeline);
+                });
             });
         };
     });

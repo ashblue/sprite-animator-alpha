@@ -279,7 +279,6 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
         position: absolute;
         background: #555;
         border-top: #656565;
-//        width: 428 * ($tick - 1);
         width: $tick-length * ($tick - 1);
         cursor: pointer;
 
@@ -412,6 +411,53 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
     }
   }
 }
+
+frame-context {
+  z-index: 21;
+
+  img {
+    max-width: 100%;
+  }
+
+  .frame-context-current-box {
+    display: block;
+    position: absolute;
+    background: #f00;
+    opacity: 0.3;
+  }
+
+  .frame-context-select-box {
+    display: block;
+    position: absolute;
+    background: #00f;
+    opacity: 0.3;
+  }
+  
+  .frame-context-wrapper {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .frame-context {
+    display: block;
+    padding: 5px;
+    position: absolute;
+    border-radius: 10px;
+    box-shadow: 0 0 1px 1px #aaa;
+    width: 350px;
+    height: 250px;
+    left: 50%;
+    bottom: 50px;
+    margin-left: -175px;
+    background: #fff;
+  }
+
+  button {
+    display: inline-block;
+  }
+}
+
 
 main-nav {
   nav {
