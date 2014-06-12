@@ -23,9 +23,7 @@
     app.directive('animationTimeline', function() {
         return {
             restrict: 'E',
-            templateUrl: 'views/animation-timeline.html',
-            controller: 'AnimationTimelineCtrl',
-            controllerAs: 'timeline'
+            templateUrl: 'views/animation-timeline.html'
         };
     });
 

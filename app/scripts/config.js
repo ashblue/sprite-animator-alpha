@@ -2,8 +2,15 @@
     window.CONFIG = {
         // Toggle this property on for server interaction. WARNING All root urls must point to a real database API
         online: false,
+
+        // Force loads in dummy data (@TODO Date could be loaded better)
         debug: true,
+
+        // Whether or not hitboxes are visible
         hitBoxVisible: true,
+
+        // Current zoom amount at load
+        scale: 4,
 
         images: {
             // Replace with an actual URL to your images root
@@ -27,6 +34,10 @@
 
         timelines: {
             root: '/data/timelines.json'
+        },
+
+        frames: {
+            root: '/data/frames.json'
         }
     };
 }());

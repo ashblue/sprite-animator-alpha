@@ -32,6 +32,10 @@
 
                         timelines: function (timelineSrv) {
                             timelineSrv.populate();
+                        },
+
+                        frames: function (frameSrv) {
+                            frameSrv.populate();
                         }
                     }
                 })

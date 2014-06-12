@@ -1,0 +1,11 @@
+<div class="layer-timeline" ng-repeat="timeline in framesCtrl.listTimelines">
+    <div class="tick-background" ng-click="framesCtrl.addKeyframe($event, timeline)">
+        <span class="tick" ng-repeat="n in [] | range:500"></span>
+    </div>
+
+    <span class="tick-fill"
+          ng-repeat="tick in framesCtrl.getFrames(timeline)"
+          ng-class="{ active: framesCtrl.isActive(tick) }"
+          ng-click="framesCtrl.select(tick)"
+          ng-style="framesCtrl.getPos(tick)"></span>
+</div>
