@@ -159,7 +159,7 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
     overflow: scroll;
     position: relative;
 
-    .timeline-guide {
+    .timeline-guide, scrub {
       position: absolute;
       top: 0;
       left: 0;
@@ -206,6 +206,8 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
     }
 
     .timeline-header {
+      display: block;
+      cursor: pointer;
       height: $header-height;
 //      min-width: 3000px;
       min-width: $tick-length * ($tick - 1);

@@ -66,6 +66,7 @@
 
             this.current.frame = frame;
             this.show(this.current);
+            frameSrv.addDirt(this.current._id);
             $scope.$emit('setFrame', this.current);
         };
 

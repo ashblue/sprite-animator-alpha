@@ -34,6 +34,7 @@
             animSrv.create({
                 "name": "Untitled",
                 "speed": 0.3,
+                "length": 10,
                 "timelines": []
             }, function (anim) {
                 animCtrl.list.unshift(anim);

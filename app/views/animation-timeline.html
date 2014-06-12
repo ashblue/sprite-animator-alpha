@@ -16,18 +16,9 @@
         </div>
 
         <div class="main">
-            <div class="timeline-guide">
-                <span class="box"></span>
-                <span class="tail"></span>
-            </div>
+            <scrub ng-style="scrubCtrl.getPos()"></scrub>
 
-            <div class="timeline-header">
-                <span class="tick-number start">0</span>
-                <span class="tick-number" ng-repeat="n in [] | range:100">{{($index * 5) + 5}}</span>
-                <div class="tick-contain">
-                    <span class="tick" ng-repeat="n in [] | range:500"></span>
-                </div>
-            </div>
+            <scrub-list ng-click="scrubCtrl.setIndex($event)" class="timeline-header"></scrub-list>
 
             <div class="timeline-content">
                 <frames></frames>

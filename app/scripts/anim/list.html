@@ -9,6 +9,7 @@
         <tr>
             <th>Name</th>
             <th>Speed</th>
+            <th>Frame Count</th>
             <th>Layers</th>
             <th></th>
             <th></th>
@@ -16,6 +17,7 @@
         <tr ng-repeat="anim in animCtrl.list">
             <td>{{anim.name}}</td>
             <td>{{anim.speed}}s</td>
+            <td>{{anim.length}}</td>
             <td>{{anim.timelines.length}}</td>
             <td>
                 <button ng-click="animCtrl.set(anim)" class="btn-default btn btn-xs pull-right"><i class="fa fa-pencil"></i></button>

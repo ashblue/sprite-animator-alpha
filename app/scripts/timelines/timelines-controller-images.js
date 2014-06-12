@@ -5,8 +5,8 @@
     var app = angular.module('spriteApp');
 
     app.controller('TimelineImagesCtrl', [
-        '$scope', 'zoomSrv', 'timelineSrv', 'spriteSrv', 'imageSrv', 'animGroupSrv',
-        function ($scope, zoomSrv, timelineSrv, spriteSrv, imageSrv, animGroupSrv) {
+        '$scope', 'zoomSrv', 'timelineSrv', 'spriteSrv', 'imageSrv', 'animGroupSrv', 'scrubSrv', 'frameSrv',
+        function ($scope, zoomSrv, timelineSrv, spriteSrv, imageSrv, animGroupSrv, scrubSrv, frameSrv) {
         var ctrl = this;
         this.list = timelineSrv.current;
 
@@ -52,6 +52,41 @@
                 this.sprite.setScale(scale);
             });
         });
+
+        this.getScrubStyle = function (timeline) {
+            var $target = $('#canvas-' + timeline._id);
+            var simpleSprite = $target.get(0).sprite;
+            var index = scrubSrv.index;
+            var frame; // Used to speed up frame searches
+            var target = { index: Number.NEGATIVE_INFINITY }; // The target frame properties we need
+
+            // Loop through all of the timeline frames looking for the closest frame to the index
+            timeline.frames.forEach(function (id) {
+                frame = frameSrv.get(id);
+                if (frame.index <= index && frame.index > target.index) target = frame;
+            });
+
+            // Turn the discovered frame into real CSS attributes
+            simpleSprite.setFrame(target.frame);
+
+            var pivot = (target.pivotX * zoomSrv.scale) + 'px ' + (target.pivotY * zoomSrv.scale) + 'px';
+            var scale = '';
+            if (target.flipX) scale += 'scaleX(-1) ';
+            if (target.flipY) scale += 'scaleY(-1) ';
+            if (target.angle) scale += 'rotate(' + target.angle + 'deg) ';
+
+            return {
+                left: target.x * zoomSrv.scale + 'px',
+                top: target.y * zoomSrv.scale + 'px',
+                opacity: target.alpha,
+                webkitTransform: scale,
+                mozTransform: scale,
+                transform: scale,
+                webkitTransformOrigin: pivot,
+                mozTransformOrigin: pivot,
+                transformOrigin: pivot
+            };
+        };
     }]);
 
     app.directive('resizeStage', ['animGroupSrv', 'zoomSrv', function (animGroupSrv, zoomSrv) {
@@ -110,6 +145,7 @@
                 // Store the canvas in the DOM so it can be accessed at a later date
                 // @NOTE Do not bind global $scope events here as they will not be cleaned out of memory
                 el.get(0).sprite = anim;
+                el.get(0).id = 'canvas-' + attr.id;
             }
         };
     }]);

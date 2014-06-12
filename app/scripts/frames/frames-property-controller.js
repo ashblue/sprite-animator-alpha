@@ -14,6 +14,7 @@
         // Hack to make property changes save on changed models
         _event.addDirt = function () {
             frameSrv.addDirt(this._id);
+            $scope.$apply();
         };
 
         $gui.append(gui.domElement).hide();
@@ -30,8 +31,8 @@
             this.clearFrame();
 
             // Looks nasty but we have to monitor all the model properties for changes so they can be saved to the server
-            guiPos.add(frame, 'x', frame.x).onChange(_event.addDirt.bind(frame));
-            guiPos.add(frame, 'y', frame.y).onChange(_event.addDirt.bind(frame));
+            guiPos.add(frame, 'x').onChange(_event.addDirt.bind(frame));
+            guiPos.add(frame, 'y').onChange(_event.addDirt.bind(frame));
             guiPos.open();
 
             guiDetails.add(frame, 'frame', 0).onChange(_event.addDirt.bind(frame));

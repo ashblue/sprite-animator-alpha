@@ -2,6 +2,8 @@
 <div class="animation-stage-container" ng-style="timelineImagesCtrl.getStage()">
     <animation-image class="animation-image"
         ng-repeat="timelineItem in timelineImagesCtrl.list | orderBy:'zIndex':true"
+        ng-style="timelineImagesCtrl.getScrubStyle(timelineItem)"
+        data-id="{{timelineItem._id}}"
         data-src="{{timelineImagesCtrl.getImage(timelineItem.sprite)}}"
         data-sprite="{{timelineItem.sprite}}"></animation-image>
 

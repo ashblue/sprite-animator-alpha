@@ -60,7 +60,6 @@
             e.preventDefault();
             e.stopPropagation();
             timelineSrv.set(timeline._id, 'lock', !timeline.lock);
-            console.log(timeline.lock);
         };
 
         this.toggleShow = function (e, timeline) {
