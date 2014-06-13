@@ -1,13 +1,18 @@
 <!-- @TODO Rename file stage.html -->
 <div class="animation-stage-container" ng-style="timelineImagesCtrl.getStage()">
     <animation-image class="animation-image"
-        ng-repeat="timelineItem in timelineImagesCtrl.list | orderBy:'zIndex':true"
-        ng-style="timelineImagesCtrl.getScrubStyle(timelineItem)"
-        ng-class="{ lock: timelineItem.lock }"
-        ng-show="timelineItem.show"
-        data-id="{{timelineItem._id}}"
-        data-src="{{timelineImagesCtrl.getImage(timelineItem.sprite)}}"
-        data-sprite="{{timelineItem.sprite}}"></animation-image>
+                     ng-repeat="timelineItem in timelineImagesCtrl.list | orderBy:'zIndex':true"
+                     ng-style="timelineImagesCtrl.getScrubStyle(timelineItem)"
+                     ng-class="{ lock: timelineItem.lock, active: timelinesCtrl.isSelected(timelineItem) }"
+                     ng-show="timelineItem.show"
+                     ng-click="timelinesCtrl.setSelected(timelineItem)"
+                     data-id="{{timelineItem._id}}"
+                     data-src="{{timelineImagesCtrl.getImage(timelineItem.sprite)}}"
+                     data-sprite="{{timelineItem.sprite}}">
+        <span class="animation-image-canvas"></span>
+        <span class="animation-image-axis fa fa-crosshairs"></span>
+    </animation-image>
+
 
     <div ng-show="timelineImagesCtrl.isHitBoxVisible()" class="hitbox" ng-style="timelineImagesCtrl.getHitBox()">
         <span resize-stage class="handle"></span>

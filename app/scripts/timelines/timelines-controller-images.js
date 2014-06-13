@@ -71,9 +71,17 @@
 
             var pivot = (target.pivotX * zoomSrv.scale) + 'px ' + (target.pivotY * zoomSrv.scale) + 'px';
             var scale = '';
-            if (target.flipX) scale += 'scaleX(-1) ';
-            if (target.flipY) scale += 'scaleY(-1) ';
+            var flipScale = '';
+            if (target.flipX) flipScale += 'scaleX(-1) ';
+            if (target.flipY) flipScale += 'scaleY(-1) ';
             if (target.angle) scale += 'rotate(' + target.angle + 'deg) ';
+
+            // Flip scale cannot be on the same axis as rotate because they'll both inherit the transformOrigin adjustment
+            $target.find('.animation-image-canvas').css({
+                webkitTransform: flipScale,
+                mozTransform: flipScale,
+                transform: flipScale
+            });
 
             return {
                 left: target.x * zoomSrv.scale + 'px',
@@ -134,12 +142,12 @@
         ['$rootScope', 'imageSrv', 'spriteSrv', 'zoomSrv', function ($rootScope, imageSrv, spriteSrv, zoomSrv) {
             return {
             restrict: 'E',
-            transclude: true,
+//            transclude: true,
             link: function ($scope, el, attr) {
                 var sprite = spriteSrv.get(attr.sprite);
                 var anim = new SimpleSprite(attr.src, sprite.width, sprite.height, {
                     scale: zoomSrv.scale,
-                    target: el.get(0)
+                    target: el.find('.animation-image-canvas').get(0)
                 });
 
                 // Store the canvas in the DOM so it can be accessed at a later date

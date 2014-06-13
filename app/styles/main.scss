@@ -6,6 +6,9 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
 @import "../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
 
+$highlight: #1178cc;
+$highlight-secondary: #e30482;
+
 #animation-manager {
   position: relative;
   z-index: 1;
@@ -104,7 +107,7 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
   $tick-length: 500;
   $tick-height: 30px;
   $header-height: 26px;
-  $highlight: #1178cc;
+
   position: fixed;
   bottom: 0;
   left: 0;
@@ -425,6 +428,7 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
       background: #f00;
       outline: 1px dashed #333;
       position: relative;
+      pointer-events: none;
 
       .handle {
         display: block;
@@ -437,17 +441,46 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
         right: 0;
         margin: 0 -5px -5px 0;
         cursor: move;
+        pointer-events: auto;
 
         &:hover {
           background: #0f0;
         }
       }
     }
+    
+    .animation-image-canvas {
+      display: block;
+    }
 
     .animation-image {
       position: absolute;
       top: 0;
       left: 0;
+      line-height: 0;
+      cursor: pointer;
+
+      &.lock {
+        pointer-events: none;
+      }
+
+      &.active {
+        cursor: grab;
+        outline: 1px solid $highlight-secondary;
+
+        .animation-image-axis {
+          display: block;
+        }
+      }
+
+      &:hover {
+        outline: 1px solid $highlight;
+      }
+    }
+
+    .animation-image-axis {
+      display: none;
+      position: absolute;
     }
   }
 }
