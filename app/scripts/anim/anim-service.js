@@ -6,6 +6,7 @@
 
     app.factory('animSrv', function ($http) {
         var animSrv = new window.sa.Collection(CONFIG.animations.root, $http);
+        animSrv.current = null;
         return animSrv;
     });
 })();

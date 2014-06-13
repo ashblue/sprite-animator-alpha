@@ -112,6 +112,44 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
   background: #333;
   color: #fff;
 
+  scrub-duration {
+    display: block;
+    height: $header-height;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+
+    .length {
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.7);
+      height: 2px;
+    }
+
+    scrub-duration-handle {
+      width: 5px;
+      height: 100%;
+      cursor: grab;
+      position: absolute;
+      top: 0;
+      right: 0;
+      opacity: 0.7;
+      pointer-events: auto;
+      background: #000;
+      border-radius: 10px;
+      margin-top: 3px;
+      border-right: 1px solid #fff;
+      
+      &:hover {
+        opacity: 1;
+        background: $highlight;
+      }
+    }
+  }
+
   .resize-timeline {
     height: 2px;
     width: 100%;

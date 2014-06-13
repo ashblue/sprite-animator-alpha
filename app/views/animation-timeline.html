@@ -17,8 +17,8 @@
 
         <div class="main">
             <scrub ng-style="scrubCtrl.getPos()"></scrub>
-
-            <scrub-list ng-click="scrubCtrl.setIndex($event)" class="timeline-header"></scrub-list>
+            <scrub-list scrub-drop-zone ng-click="scrubCtrl.setIndex($event)" class="timeline-header"></scrub-list>
+            <scrub-duration ng-style="scrubCtrl.getDurationWidth()"></scrub-duration>
 
             <div class="timeline-content">
                 <frames></frames>

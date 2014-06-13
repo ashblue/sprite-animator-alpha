@@ -3,7 +3,18 @@
 
     var app = angular.module('spriteApp');
 
+    var _event = {
+        disable: function (e) {
+            e.preventDefault();
+        }
+    };
+
+    var currentAnim = { length: 0 };
     app.controller('ScrubCtrl', function ($scope, scrubSrv) {
+        $scope.$on('setAnim', function (e, anim) {
+            currentAnim = anim;
+        });
+
         this.setIndex = function (e) {
             var pos = $(e.currentTarget).getMousePos(e);
             var frameWidth = $('.tick:first').outerWidth(true);
@@ -22,6 +33,18 @@
                 left: scrubSrv.index * frameWidth + 'px'
             };
         };
+
+        this.getDurationWidth = function () {
+            var width = $('.tick:first').outerWidth(true);
+
+            return {
+                width: currentAnim.length * width
+            };
+        };
+
+        $scope.$on('$destroy', function () {
+            currentAnim = { length: 0 };
+        });
     });
 
     app.directive('scrub', function() {
@@ -39,4 +62,41 @@
             templateUrl: 'scripts/scrub/scrub-view-list.html'
         };
     });
+
+    app.directive('scrubDuration', function() {
+        return {
+            restrict: 'E',
+            templateUrl: 'scripts/scrub/scrub-view-duration.html'
+        };
+    });
+
+    app.directive('scrubDropZone', function () {
+        return {
+            restrict: 'A',
+            link: function($scope, el, attr) {
+                el[0].ondrop = function (e) {
+                    var width = $('.tick:first').outerWidth(true);
+                    var pos = $(el).getMousePos(e);
+                    var duration = Math.floor(pos.x / width);
+                    $scope.$apply(function () {
+                        if (duration || duration === 0) currentAnim.length = duration + 1;
+                    });
+                };
+
+                el.bind('dragover', _event.disable);
+                el.bind('dragenter', _event.disable);
+            }
+        }
+    });
+
+//    app.directive('scrubDurationHandle', function () {
+//        return {
+//            restrict: 'E',
+//            link: function($scope, el, attr) {
+////                el[0].ondragstart = function (e) {
+////                    e.dataTransfer.setData('id', attr.id);
+////                };
+//            }
+//        }
+//    });
 })();
