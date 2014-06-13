@@ -14,26 +14,22 @@
 
         this.addKeyframe = function (e, timeline) {
             if (disabled) return;
-            disabled = true;
             var index = $(e.target).index();
+            if (index === 0) return; // Never create something at the 0 index
+            disabled = true;
 
             // @TODO Verify a frame at this position does not already exist (just to be safe)
 
-            frameSrv.create({
-                index: index,
-                timeline: timeline._id,
-                frame: 0,
-                x: 0,
-                y: 0,
-                alpha: 1,
-                pivotX: 0,
-                pivotY: 0,
-                length: 1,
-                angle: 0,
-                flipX: false,
-                flipY: false,
-                lock: false
-            }, function (item) {
+            // Grab the previous frame and make a duplicate copy for insertion into the timeline
+            var prevframe = frameSrv.getFrameIndex(timeline._id, index);
+            var frame = window.sa.object.merge({}, prevframe);
+            frame.index = index;
+            frame.lock = false;
+            frame.length = 1;
+            delete frame.$$hashKey;
+            delete frame._id;
+
+            frameSrv.create(frame, function (item) {
                 disabled = false;
                 timeline.frames.push(item._id);
             });

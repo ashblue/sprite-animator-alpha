@@ -16,6 +16,25 @@
             return imageSrv.get(sprite.image);
         };
 
+        /**
+         * Finds and returns the nearest frame to the requested index
+         * @param timeline {*} Timeline object or ID
+         * @param index {number} Requested frame index
+         * @returns {object}
+         */
+        frameSrv.getFrameIndex = function (timeline, index) {
+            if (typeof timeline !== 'object') timeline = timelineSrv.get(timeline);
+            var result = { index: Number.NEGATIVE_INFINITY };
+            var frame;
+
+            timeline.frames.forEach(function (id) {
+                frame = frameSrv.get(id);
+                if (frame.index <= index && frame.index > result.index) result = frame;
+            });
+
+            return result;
+        };
+
         return frameSrv;
     });
 })();
