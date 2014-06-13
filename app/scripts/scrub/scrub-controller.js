@@ -38,7 +38,7 @@
             var width = $('.tick:first').outerWidth(true);
 
             return {
-                width: currentAnim.length * width
+                width: (currentAnim.length) * width
             };
         };
 
@@ -88,15 +88,4 @@
             }
         }
     });
-
-//    app.directive('scrubDurationHandle', function () {
-//        return {
-//            restrict: 'E',
-//            link: function($scope, el, attr) {
-////                el[0].ondragstart = function (e) {
-////                    e.dataTransfer.setData('id', attr.id);
-////                };
-//            }
-//        }
-//    });
 })();
