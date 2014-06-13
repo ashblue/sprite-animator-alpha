@@ -14,12 +14,8 @@
         </span>
 
         <span ng-click="timelinesCtrl.toggleLock($event, layer)" title="Toggle lock to disable interactions" class="group pull-right">
-            <i ng-hide="layer.lock" class="fa fa-lock"></i>
-            <i ng-show="layer.lock" class="fa fa-unlock-alt"></i>
-        </span>
-
-        <span title="Set axis of rotation" class="group pull-right">
-            <i class="fa fa-crosshairs"></i>
+            <i ng-show="layer.lock" class="fa fa-lock"></i>
+            <i ng-hide="layer.lock" class="fa fa-unlock-alt"></i>
         </span>
 
         <span ng-click="timelinesCtrl.showImage(layer)" title="View attached sprite details" class="group pull-right">

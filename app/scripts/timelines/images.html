@@ -3,6 +3,8 @@
     <animation-image class="animation-image"
         ng-repeat="timelineItem in timelineImagesCtrl.list | orderBy:'zIndex':true"
         ng-style="timelineImagesCtrl.getScrubStyle(timelineItem)"
+        ng-class="{ lock: timelineItem.lock }"
+        ng-show="timelineItem.show"
         data-id="{{timelineItem._id}}"
         data-src="{{timelineImagesCtrl.getImage(timelineItem.sprite)}}"
         data-sprite="{{timelineItem.sprite}}"></animation-image>
