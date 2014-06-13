@@ -8,8 +8,18 @@
         var disabled = false;
         var ctrl = this;
 
-        $scope.$on('removeFrame', function (e, frame) {
-            ctrl.removeKeyframe(frame);
+        $scope.$on('removeFrame', function (e, frame, keepTimeline) {
+            ctrl.removeKeyframe(frame, keepTimeline);
+        });
+
+        $scope.$on('setFrame', function (e, frame) {
+            ctrl.setFrame(frame);
+        });
+
+        $scope.$on('setFrameCurrent', function (e, key, val) {
+            $scope.$apply(function () {
+                frameSrv.set(frameSrv.current._id, key, val);
+            });
         });
 
         this.addKeyframe = function (e, timeline) {
@@ -35,11 +45,14 @@
             });
         };
 
+        this.setFrame = function (frame) {
+            frameSrv.current = frame;
+        };
+
         this.select = function (frame) {
             // Frame already selected? Show the context menu
             if (frameSrv.current === frame) this.showContext(frame);
-
-            frameSrv.current = frame;
+            $scope.$emit('setTimeline', timelineSrv.get(frame.timeline));
             $scope.$emit('setFrame', frame);
 
             // Fill dat gui with current details
@@ -65,11 +78,13 @@
         };
 
         // Destory a key frame
-        this.removeKeyframe = function (frame) {
+        this.removeKeyframe = function (frame, keepTimeline) {
             var timeline = timelineSrv.get(frame.timeline);
             timeline.frames.erase(frame._id);
             frameSrv.destroy(frame._id);
-            // Delete from current
+
+            // Prevents an endless loop from firing when calling this from the timelines-controller
+            if (!keepTimeline) $scope.$emit('clearSelectTimeline');
         };
 
         // Calculates the correct position for a frame since they're all free floating

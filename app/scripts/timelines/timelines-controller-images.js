@@ -4,6 +4,13 @@
 
     var app = angular.module('spriteApp');
 
+    var _event = {
+        disable: function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    };
+
     app.controller('TimelineImagesCtrl', [
         '$scope', 'zoomSrv', 'timelineSrv', 'spriteSrv', 'imageSrv', 'animGroupSrv', 'scrubSrv', 'frameSrv',
         function ($scope, zoomSrv, timelineSrv, spriteSrv, imageSrv, animGroupSrv, scrubSrv, frameSrv) {
@@ -83,6 +90,11 @@
                 transform: flipScale
             });
 
+            $target.find('.animation-image-axis').css({
+                left: target.pivotX * zoomSrv.scale + 'px',
+                top: target.pivotY * zoomSrv.scale + 'px'
+            });
+
             return {
                 left: target.x * zoomSrv.scale + 'px',
                 top: target.y * zoomSrv.scale + 'px',
@@ -139,10 +151,9 @@
     }]);
 
     app.directive('animationImage',
-        ['$rootScope', 'imageSrv', 'spriteSrv', 'zoomSrv', function ($rootScope, imageSrv, spriteSrv, zoomSrv) {
+        ['spriteSrv', 'zoomSrv', function (spriteSrv, zoomSrv) {
             return {
             restrict: 'E',
-//            transclude: true,
             link: function ($scope, el, attr) {
                 var sprite = spriteSrv.get(attr.sprite);
                 var anim = new SimpleSprite(attr.src, sprite.width, sprite.height, {
@@ -157,6 +168,44 @@
             }
         };
     }]);
+
+    app.directive('animationImageAxis',
+        ['zoomSrv', function (zoomSrv) {
+            return {
+                restrict: 'E',
+                link: function ($scope, el, attr) {
+                    var drag = false;
+                    var prevPos, xCurrent, yCurrent;
+
+                    el.mousedown(function (e) {
+                        drag = true;
+                        xCurrent = parseInt(el.css('left'), 10) / zoomSrv.scale;
+                        yCurrent = parseInt(el.css('top'), 10) / zoomSrv.scale;
+                        prevPos = { x: e.clientX, y: e.clientY };
+                    });
+
+                    $(window).mousemove(function (e) {
+                        if (!drag) return;
+
+                        var xChange = prevPos.x - e.clientX;
+                        if (Math.abs(xChange) >= zoomSrv.scale) {
+                            var xChangeScale = Math.floor(xChange / zoomSrv.scale);
+                            var xNew = xCurrent - xChangeScale;
+                            $scope.$emit('setFrameCurrent', 'pivotX', xNew);
+                        }
+
+                        var yChange = prevPos.y - e.clientY;
+                        if (Math.abs(yChange) >= zoomSrv.scale) {
+                            var yChangeScale = Math.floor(yChange / zoomSrv.scale);
+                            var yNew = yCurrent - yChangeScale;
+                            $scope.$emit('setFrameCurrent', 'pivotY', yNew);
+                        }
+                    }).mouseup(function () {
+                        drag = false;
+                    });
+                }
+            };
+        }]);
 
     app.directive('animationTimelineImages', function () {
         return {

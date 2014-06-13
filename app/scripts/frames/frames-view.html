@@ -1,4 +1,4 @@
-<div class="layer-timeline" ng-repeat="timeline in framesCtrl.listTimelines">
+<div class="layer-timeline" ng-repeat="timeline in framesCtrl.listTimelines | orderBy:'zIndex'">
     <div class="tick-background" ng-click="framesCtrl.addKeyframe($event, timeline)">
         <span class="tick" ng-repeat="n in [] | range:500"></span>
     </div>

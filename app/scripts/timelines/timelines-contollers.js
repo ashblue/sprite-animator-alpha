@@ -11,7 +11,7 @@
         }
     };
 
-    app.controller('TimelinesCtrl', function ($scope, animSrv, timelineSrv, spriteSrv, frameSrv) {
+    app.controller('TimelinesCtrl', function ($scope, animSrv, timelineSrv, spriteSrv, frameSrv, scrubSrv) {
         var timelinesCtrl = this;
         this.list = timelineSrv.current;
         this.selected = null;
@@ -35,6 +35,14 @@
 
         $scope.$on('selectSprite', function (e, sprite) {
             timelinesCtrl.add(sprite);
+        });
+
+        $scope.$on('setTimeline', function (e, timeline) {
+            timelinesCtrl.selected = timeline._id;
+        });
+
+        $scope.$on('clearSelectTimeline', function (e) {
+            timelinesCtrl.selected = null;
         });
 
         this.setPos = function (id, zIndex) {
@@ -70,6 +78,8 @@
 
         // Set the clicked item to active and strip active from all exiting items
         this.setSelected = function (timeline) {
+            var frame = frameSrv.getFrameIndex(timeline._id, scrubSrv.index);
+            $scope.$emit('setFrame', frame);
             this.selected = timeline._id;
         };
 
@@ -97,7 +107,7 @@
             // Clean out all existing frames
             var timeline = timelineSrv.get(this.selected);
             timeline.frames.forEach(function (id) {
-                $scope.$emit('removeFrame', frameSrv.get(id));
+                $scope.$emit('removeFrame', frameSrv.get(id), true);
             });
 
             this.list.erase(timeline);

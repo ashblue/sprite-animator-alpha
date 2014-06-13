@@ -481,6 +481,15 @@ $highlight-secondary: #e30482;
     .animation-image-axis {
       display: none;
       position: absolute;
+      width: 14px;
+      height: 14px;
+      margin: -7px 0 0 -7px;
+      color: $highlight;
+      cursor: none;
+
+      &:hover {
+        color: $highlight-secondary;
+      }
     }
   }
 }
