@@ -2,7 +2,11 @@
 
 <animation-manager></animation-manager>
 
-<animation-timeline-images class="disable-select animation-stage"></animation-timeline-images>
+<animation-timeline-images
+        ng-mousemove="timelinesCtrl.dragImageDuring($event)"
+        ng-mouseup="timelinesCtrl.dragImageEnd()"
+        class="disable-select animation-stage">
+        </animation-timeline-images>
 
 <animation-timeline></animation-timeline>
 

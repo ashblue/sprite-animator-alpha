@@ -11,7 +11,7 @@
         }
     };
 
-    app.controller('TimelinesCtrl', function ($scope, animSrv, timelineSrv, spriteSrv, frameSrv, scrubSrv) {
+    app.controller('TimelinesCtrl', function ($scope, animSrv, timelineSrv, spriteSrv, frameSrv, scrubSrv, zoomSrv) {
         var timelinesCtrl = this;
         this.list = timelineSrv.current;
         this.selected = null;
@@ -151,6 +151,35 @@
                     timelinesCtrl.list.push(timeline);
                 });
             });
+        };
+
+        // @TODO All of this logic should be placed into some kind of re-usable model / controller
+        var drag = false, prevPos, xCurrent, yCurrent;
+        this.dragImageStart = function (e, timeline) {
+            if (this.isSelected(timeline)) {
+                drag = true;
+                xCurrent = frameSrv.current.x;
+                yCurrent = frameSrv.current.y;
+                prevPos = { x: e.clientX, y: e.clientY };
+            }
+        };
+
+        this.dragImageDuring = function (e) {
+            if (!drag) return;
+
+            var xChange = prevPos.x - e.clientX;
+            var xChangeScale = Math.floor(xChange / zoomSrv.scale);
+            var xNew = xCurrent - xChangeScale;
+            $scope.$emit('setFrameCurrent', 'x', xNew);
+
+            var yChange = prevPos.y - e.clientY;
+            var yChangeScale = Math.floor(yChange / zoomSrv.scale);
+            var yNew = yCurrent - yChangeScale;
+            $scope.$emit('setFrameCurrent', 'y', yNew);
+        };
+
+        this.dragImageEnd = function () {
+            drag = false;
         };
     });
 

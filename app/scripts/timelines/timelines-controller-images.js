@@ -178,6 +178,8 @@
                     var prevPos, xCurrent, yCurrent;
 
                     el.mousedown(function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
                         drag = true;
                         xCurrent = parseInt(el.css('left'), 10) / zoomSrv.scale;
                         yCurrent = parseInt(el.css('top'), 10) / zoomSrv.scale;
@@ -188,18 +190,15 @@
                         if (!drag) return;
 
                         var xChange = prevPos.x - e.clientX;
-                        if (Math.abs(xChange) >= zoomSrv.scale) {
-                            var xChangeScale = Math.floor(xChange / zoomSrv.scale);
-                            var xNew = xCurrent - xChangeScale;
-                            $scope.$emit('setFrameCurrent', 'pivotX', xNew);
-                        }
+                        var xChangeScale = Math.floor(xChange / zoomSrv.scale);
+                        var xNew = xCurrent - xChangeScale;
+                        $scope.$emit('setFrameCurrent', 'pivotX', xNew);
 
                         var yChange = prevPos.y - e.clientY;
-                        if (Math.abs(yChange) >= zoomSrv.scale) {
-                            var yChangeScale = Math.floor(yChange / zoomSrv.scale);
-                            var yNew = yCurrent - yChangeScale;
-                            $scope.$emit('setFrameCurrent', 'pivotY', yNew);
-                        }
+                        var yChangeScale = Math.floor(yChange / zoomSrv.scale);
+                        var yNew = yCurrent - yChangeScale;
+                        $scope.$emit('setFrameCurrent', 'pivotY', yNew);
+
                     }).mouseup(function () {
                         drag = false;
                     });

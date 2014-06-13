@@ -465,7 +465,7 @@ $highlight-secondary: #e30482;
       }
 
       &.active {
-        cursor: grab;
+        cursor: move;
         outline: 1px solid $highlight-secondary;
 
         .animation-image-axis {

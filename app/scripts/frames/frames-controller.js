@@ -17,9 +17,7 @@
         });
 
         $scope.$on('setFrameCurrent', function (e, key, val) {
-            $scope.$apply(function () {
-                frameSrv.set(frameSrv.current._id, key, val);
-            });
+            frameSrv.set(frameSrv.current._id, key, val);
         });
 
         this.addKeyframe = function (e, timeline) {
