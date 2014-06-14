@@ -30,15 +30,16 @@
 
             // Turn the frame width into a CSS left position
             return {
-                left: scrubSrv.index * frameWidth + 'px'
+                left: (scrubSrv.index || 0) * frameWidth + 'px'
             };
         };
 
         this.getDurationWidth = function () {
             var width = $('.tick:first').outerWidth(true);
+            var widthFactor = currentAnim ? currentAnim.length : 0;
 
             return {
-                width: (currentAnim.length) * width
+                width: widthFactor * width
             };
         };
 
