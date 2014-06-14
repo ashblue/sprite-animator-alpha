@@ -44,6 +44,7 @@
         };
 
         this.remove = function (anim) {
+            if (!window.sa.confirm.remove()) return;
             if (this.current === anim) this.current = null;
             this.list.erase(anim);
             animSrv.destroy(anim._id);

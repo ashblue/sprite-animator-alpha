@@ -46,6 +46,8 @@
             e.preventDefault();
             e.stopPropagation();
 
+            if (!window.sa.confirm.remove()) return;
+
             imageSrv.destroy(image._id);
 
             // Force remove any sprite sheets referencing this image

@@ -46,7 +46,7 @@
             if (e) e.preventDefault();
             if (e) e.stopPropagation();
 
-            spriteSrv.destroy(sprite._id);
+            if (window.sa.confirm.remove()) spriteSrv.destroy(sprite._id);
         };
 
         this.uploadSwap = function (sprite) {

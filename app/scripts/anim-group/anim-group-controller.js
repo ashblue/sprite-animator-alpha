@@ -36,6 +36,8 @@
         }
 
         this.remove = function (item) {
+            if (!window.sa.confirm.remove()) return;
+
             if (item._id === animGroupSrv.current._id) this.set({});
             animGroupSrv.destroy(item._id);
             $scope.$emit('clearAnimationGroup');

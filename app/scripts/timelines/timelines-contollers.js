@@ -103,6 +103,7 @@
 
         this.removeSelected = function () {
             if (!this.selected) return;
+            if (!window.sa.confirm.remove()) return;
 
             // Clean out all existing frames
             var timeline = timelineSrv.get(this.selected);
