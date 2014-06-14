@@ -49,6 +49,22 @@
 
                         sprites: function (spriteSrv) {
                             if (window.CONFIG.populate) spriteSrv.populate();
+                        },
+
+                        animationGroups: function (animGroupSrv) {
+                            if (window.CONFIG.populate) animGroupSrv.populate();
+                        },
+
+                        animations: function (animSrv) {
+                            if (window.CONFIG.populate) animSrv.populate();
+                        },
+
+                        timelines: function (timelineSrv) {
+                            if (window.CONFIG.populate) timelineSrv.populate();
+                        },
+
+                        frames: function (frameSrv) {
+                            if (window.CONFIG.populate) frameSrv.populate();
                         }
                     }
                 })

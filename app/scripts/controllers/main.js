@@ -6,36 +6,105 @@
     // Check if all data is verified to prevent error references
     var verifyData = false;
 
-    app.controller('MainCtrl', function ($scope, $sce, imageSrv, spriteSrv) {
+    app.controller('MainCtrl', function ($scope, $sce, imageSrv, spriteSrv, timelineSrv) {
         var errors = false;
+
+        /**
+         * Loops through collections to verify data integrity
+         * @param primaryCol {Collection} The data we want to check for blank id references on
+         * @param refCol {Collection} The collection used to search for missing id references
+         * @param key {string} The param on the refCol used to check for missing data
+         * @param options
+         * @returns {*}
+         */
+        this.verifyData = function (primaryCol, refCol, key, options) {
+            if (!options) options = {};
+            var missingData = [];
+            var removedData = [];
+
+            refCol.list.forEach(function (refItem) {
+                if (!Array.isArray(refItem[key])) {
+                    var primaryItem = primaryCol.get(refItem[key]);
+                    if (!primaryItem) {
+                        missingData.push(refItem[key]);
+                        removedData.push(refItem);
+                    }
+                } else {
+                    var errorFound = false;
+                    refItem[key].forEach(function (id) {
+                        var primaryItem = primaryCol.get(id);
+                        if (!primaryItem) {
+                            missingData.push(id);
+                            if (!errorFound) removedData.push(refItem);
+                            if (!errorFound) errorFound = true;
+                        }
+                    });
+                }
+
+            });
+
+            if (missingData.length) {
+                removedData.forEach(function (item) {
+                    refCol.destroy(item._id);
+                });
+
+                console.error('The following ' + options.primaryName + ' are missing ' + JSON.stringify(missingData)
+                    + ' because of this the following ' + options.refName + ' have been destroyed ' + JSON.stringify(removedData));
+
+                errors = true;
+            }
+
+            return this;
+        };
 
         /**
          * Loop through all images available to sprites and verify they exist, if not
          * delete the sprite and show an alert message (should be one compounded alert listing all
          * removed)
          */
-        this.verifySprites = function () {
-            var missingImages = [];
-            var removedSprites = [];
-
-            spriteSrv.list.forEach(function (sprite) {
-                var image = imageSrv.get(sprite.image);
-                if (!image) {
-                    missingImages.push(sprite.image);
-                    removedSprites.push(sprite);
-                }
+        this.verifyImages = function () {
+            return this.verifyData(imageSrv, spriteSrv, 'image', {
+                primaryName: 'images',
+                refName: 'sprites'
             });
+        };
 
-            if (removedSprites.length) {
-                removedSprites.forEach(function (sprite) {
-                    spriteSrv.destroy(sprite._id);
-                });
+        /**
+         * Missing sprites can destroy pre-existing timeline data
+         */
+        this.verifySprites = function () {
+            return this.verifyData(spriteSrv, timelineSrv, 'sprite', {
+                primaryName: 'sprites',
+                refName: 'timelines'
+            });
+        };
 
-                console.error('The following images are missing ' + JSON.stringify(missingImages)
-                    + ' becuase of this the following sprites have been destroyed ' + JSON.stringify(removedSprites));
+        /**
+         * If an animation group is missing, remove all animations
+         */
+        this.verifyAnimationGroups = function () {
 
-                errors = true;
-            }
+        };
+
+        /**
+         * If an animation is missing remove all connected timelines
+         */
+        this.verifyAnimations = function () {
+
+        };
+
+        /**
+         * If a timeline is missing remove all referencing keyframes
+         */
+        this.verifyTimelines = function () {
+
+        };
+
+        /**
+         * If a keyframe is missing remove references only on timelines
+         */
+        this.verifyKeyframes = function () {
+
         };
 
         $scope.trustSrc = function (src) {
@@ -44,7 +113,8 @@
 
         // Only check data on intial load, resource intensive process
         if (!verifyData) {
-            this.verifySprites();
+            this.verifyImages()
+                .verifySprites();
             if (errors) window.alert('Data integrity issues have destroyed existing animation data, please see the console and contact a system administrator before proceeding.');
             verifyData = true;
         }
