@@ -9,7 +9,7 @@
                      ng-click="timelinesCtrl.setSelected(timelineItem)"
                      ng-mousedown="timelinesCtrl.dragImageStart($event, timelineItem)"
                      data-id="{{timelineItem._id}}"
-                     data-src="{{timelineImagesCtrl.getImage(timelineItem.sprite)}}"
+                     data-src="{{trustSrc(timelineImagesCtrl.getImage(timelineItem.sprite))}}"
                      data-sprite="{{timelineItem.sprite}}">
         <span class="animation-image-canvas"></span>
         <animation-image-axis class="animation-image-axis fa fa-crosshairs"></animation-image-axis>

@@ -19,18 +19,30 @@
             }
         });
 
+        $scope.$on('setUploadSprite', function (e, sprite) {
+            controller.upload.sprite_id = sprite._id;
+            controller.upload.name = sprite.name;
+        });
+
         this.upload = {
             image: DEFAULT_IMAGE,
             imageCanvas: null,
             rows: 3,
             cols: 3,
             image_id: null,
+            sprite_id: null,
             name: null
+        };
+
+        this.removeSprite = function () {
+            this.upload.name = null;
+            this.upload.sprite_id = null;
         };
 
         this.addUpload = function (sprite) {
             $scope.$emit('parseUpload', sprite);
             this.clearImage();
+            this.removeSprite();
             this.upload.name = null;
             this.upload.rows = 3;
             this.upload.cols = 3;

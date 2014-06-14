@@ -9,8 +9,13 @@
     </div>
 
     <div class="col-md-8">
+        <div ng-show="uploadCtrl.upload.sprite_id" class="alert alert-warning">
+            <p style="margin-bottom: 10px;">This image upload will overwrite the sprite named <strong>{{uploadCtrl.upload.name}}</strong> and replace all references to it.
+            If you don't want to replace this sprite, then click the remove button.</p>
+            <span ng-click="uploadCtrl.removeSprite()" class="btn btn-danger btn-xs">X Remove Sprite</span>
+        </div>
 
-        <div class="form-group">
+        <div ng-hide="uploadCtrl.upload.sprite_id" class="form-group">
             <label for="sprite-name">Name</label>
             <input class="form-control" id="sprite-name" type="text" required ng-model="uploadCtrl.upload.name" />
         </div>
@@ -32,6 +37,7 @@
         </div>
 
         <input ng-model="uploadCtrl.upload.image_id" type="hidden" />
+        <input ng-model="uploadCtrl.upload.sprite_id" type="hidden" />
 
         <button type="submit" class="btn btn-primary">Submit</button>
 

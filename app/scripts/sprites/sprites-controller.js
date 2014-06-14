@@ -12,13 +12,21 @@
 
 
         // Expects sprite sheet data from the upload form
-        $scope.$on('createSprite', function (event, sprite) {
-            spriteSrv.create({
-                name: sprite.name,
-                image: sprite.image,
-                width: sprite.imageCanvas.canvas.width / zoomSrv.scale / sprite.cols,
-                height: sprite.imageCanvas.canvas.height / zoomSrv.scale / sprite.rows
-            });
+        $scope.$on('createSprite', function (event, upload) {
+            if (!upload.sprite_id) {
+                spriteSrv.create({
+                    name: upload.name,
+                    image: upload.image,
+                    width: upload.imageCanvas.canvas.width / zoomSrv.scale / upload.cols,
+                    height: upload.imageCanvas.canvas.height / zoomSrv.scale / upload.rows
+                });
+            } else {
+                spriteSrv.set(upload.sprite_id, {
+                    image: upload.image,
+                    width: upload.imageCanvas.canvas.width / zoomSrv.scale / upload.cols,
+                    height: upload.imageCanvas.canvas.height / zoomSrv.scale / upload.rows
+                });
+            }
         });
 
         this.editSprite = function (e, sprite) {
@@ -39,6 +47,10 @@
             if (e) e.stopPropagation();
 
             spriteSrv.destroy(sprite._id);
+        };
+
+        this.uploadSwap = function (sprite) {
+            $scope.$emit('setUploadSprite', sprite);
         };
     }]);
 

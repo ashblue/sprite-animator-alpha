@@ -3,12 +3,10 @@
 
     var app = angular.module('spriteApp');
 
-    app.controller('MainCtrl', function ($scope) {
-        $scope.awesomeThings = [
-            'HTML5 Boilerplate',
-            'AngularJS',
-            'Karma'
-        ];
+    app.controller('MainCtrl', function ($scope, $sce) {
+        $scope.trustSrc = function (src) {
+            return $sce.trustAsResourceUrl(src);
+        };
     });
 
     app.directive('animationManager', function() {

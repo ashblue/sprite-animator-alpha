@@ -35,7 +35,14 @@
     Collection.prototype.set = function (id, key, value) {
         var collection = this;
         var item = this.get(id);
-        item[key] = value;
+
+        if (typeof key !== 'object') {
+            item[key] = value;
+        } else {
+            for (var k in key) {
+                item[k] = key[k];
+            }
+        }
 
         // Data is corrupt on the server, send a fix after a short delay in-case more changes come in
         if (this.online) {
