@@ -41,6 +41,7 @@
                 })
                 .when('/sprites', {
                     templateUrl: 'views/sprite-sheets.html',
+                    controller: 'MainCtrl',
                     resolve: {
                         images: function (imageSrv) {
                             if (window.CONFIG.populate) imageSrv.populate();
