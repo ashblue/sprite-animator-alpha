@@ -6,11 +6,11 @@
     // Check if all data is verified to prevent error references
     var verifyData = false;
 
-    app.controller('MainCtrl', function ($scope, $sce, imageSrv, spriteSrv, timelineSrv) {
+    app.controller('MainCtrl', function ($scope, $sce, imageSrv, spriteSrv, animSrv, animGroupSrv, timelineSrv, frameSrv) {
         var errors = false;
 
         /**
-         * Loops through collections to verify data integrity
+         * Loops through collections to verify data integrity, if the item is not found the refCol is destroyed
          * @param primaryCol {Collection} The data we want to check for blank id references on
          * @param refCol {Collection} The collection used to search for missing id references
          * @param key {string} The param on the refCol used to check for missing data
@@ -58,6 +58,48 @@
         };
 
         /**
+         * Only destroys the ID to the non existent item instead of destroying the refCol item all together
+         * @param primaryCol
+         * @param refCol
+         * @param key
+         * @param options
+         * @returns {*}
+         */
+        this.verifyDataRef = function (primaryCol, refCol, key, options) {
+            var missingData = [];
+            var affectedTimelines = [];
+
+            refCol.list.forEach(function (timelineItem) {
+                var errorFound = false;
+                timelineItem[key].forEach(function (id) {
+                    var primaryItem = primaryCol.get(id);
+                    if (!primaryItem) {
+                        missingData.push(id);
+                        affectedTimelines.push(timelineItem);
+                        if (!errorFound) errorFound = true;
+                    }
+                });
+            });
+
+            if (missingData.length) {
+                affectedTimelines.forEach(function (timelineItem) {
+                    missingData.forEach(function (frameId) {
+                        timelineItem[key].erase(frameId);
+                    });
+                    refCol.addDirt(timelineItem._id);
+                });
+
+
+                console.error('The following ' + options.primaryName + ' are missing ' + JSON.stringify(missingData)
+                    + ' because of this the following ' + options.refName + ' have been affected ' + JSON.stringify(affectedTimelines));
+
+                errors = true;
+            }
+
+            return this;
+        };
+
+        /**
          * Loop through all images available to sprites and verify they exist, if not
          * delete the sprite and show an alert message (should be one compounded alert listing all
          * removed)
@@ -80,31 +122,35 @@
         };
 
         /**
-         * If an animation group is missing, remove all animations
-         */
-        this.verifyAnimationGroups = function () {
-
-        };
-
-        /**
-         * If an animation is missing remove all connected timelines
+         * Verifiies animation groups talk to animations
+         * @returns {*}
          */
         this.verifyAnimations = function () {
-
+            return this.verifyDataRef(animSrv, animGroupSrv, 'animations', {
+                primaryName: 'animations',
+                refName: 'animation groups'
+            });
         };
 
         /**
-         * If a timeline is missing remove all referencing keyframes
+         * Makes sure animations have real timelines
+         * @returns {*}
          */
         this.verifyTimelines = function () {
-
+            return this.verifyDataRef(timelineSrv, animSrv, 'timelines', {
+                primaryName: 'timelines',
+                refName: 'animations'
+            });
         };
 
         /**
          * If a keyframe is missing remove references only on timelines
          */
         this.verifyKeyframes = function () {
-
+            return this.verifyDataRef(frameSrv, timelineSrv, 'frames', {
+                primaryName: 'frames',
+                refName: 'timelines'
+            });
         };
 
         $scope.trustSrc = function (src) {
@@ -114,7 +160,10 @@
         // Only check data on intial load, resource intensive process
         if (!verifyData) {
             this.verifyImages()
-                .verifySprites();
+                .verifySprites()
+                .verifyAnimations()
+                .verifyTimelines()
+                .verifyKeyframes();
             if (errors) window.alert('Data integrity issues have destroyed existing animation data, please see the console and contact a system administrator before proceeding.');
             verifyData = true;
         }
