@@ -3,7 +3,10 @@
         // Toggle this property on for server interaction. WARNING All root urls must point to a real database API
         online: false,
 
-        // Force loads in dummy data (@TODO Date could be loaded better)
+        // Load in data when application boots up, recommended for testing purposes only
+        populate: true,
+
+        // Force loads in dummy data
         debug: true,
 
         // Whether or not hitboxes are visible

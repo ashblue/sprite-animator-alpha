@@ -15,27 +15,27 @@
                     controller: 'MainCtrl',
                     resolve: {
                         images: function (imageSrv) {
-                            imageSrv.populate();
+                            if (window.CONFIG.populate) imageSrv.populate();
                         },
 
                         sprites: function (spriteSrv) {
-                            spriteSrv.populate();
+                            if (window.CONFIG.populate) spriteSrv.populate();
                         },
 
                         animationGroups: function (animGroupSrv) {
-                            animGroupSrv.populate();
+                            if (window.CONFIG.populate) animGroupSrv.populate();
                         },
 
                         animations: function (animSrv) {
-                            animSrv.populate();
+                            if (window.CONFIG.populate) animSrv.populate();
                         },
 
                         timelines: function (timelineSrv) {
-                            timelineSrv.populate();
+                            if (window.CONFIG.populate) timelineSrv.populate();
                         },
 
                         frames: function (frameSrv) {
-                            frameSrv.populate();
+                            if (window.CONFIG.populate) frameSrv.populate();
                         }
                     }
                 })
@@ -43,11 +43,11 @@
                     templateUrl: 'views/sprite-sheets.html',
                     resolve: {
                         images: function (imageSrv) {
-                            imageSrv.populate();
+                            if (window.CONFIG.populate) imageSrv.populate();
                         },
 
                         sprites: function (spriteSrv) {
-                            spriteSrv.populate();
+                            if (window.CONFIG.populate) spriteSrv.populate();
                         }
                     }
                 })

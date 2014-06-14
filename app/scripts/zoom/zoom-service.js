@@ -6,7 +6,7 @@
 
     app.factory('zoomSrv', function () {
         return {
-            scale: 1
+            scale: window.CONFIG.scale
         };
     });
 })();
