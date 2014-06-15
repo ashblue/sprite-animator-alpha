@@ -4,7 +4,7 @@
     // Logic for image manager section
     var app = angular.module('spriteApp');
 
-    app.controller('AnimCtrl', function ($scope, animGroupSrv, animSrv) {
+    app.controller('AnimCtrl', function ($scope, animGroupSrv, animSrv, timelineSrv, frameSrv) {
         var animCtrl = this;
         this.current = null; // Current animation
         this.list = null; // Current animation list
@@ -50,6 +50,17 @@
             animSrv.destroy(anim._id);
             animGroupSrv.current.animations.erase(anim._id);
             animGroupSrv.addDirt(animGroupSrv.current._id);
+
+            anim.timelines.forEach(function (timelineId) {
+                var timeline = timelineSrv.get(timelineId);
+
+                timeline.frames.forEach(function (frameId) {
+                    $scope.$emit('clearFrame', frameSrv.get(frameId));
+                    $scope.$emit('removeFrame', frameSrv.get(frameId));
+                });
+
+                timelineSrv.destroy(timelineId);
+            });
         };
 
         $scope.$on('clearAnimationGroup', function (e) {
