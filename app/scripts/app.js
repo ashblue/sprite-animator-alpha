@@ -1,6 +1,7 @@
 (function () {
     'use strict';
 
+    // @TODO In order for this system to work we must load all collections, verify data, then launch the angular app with a callback
     // @TODO The data removal system is a mess, needs to be rewritten with events
     angular
         .module('spriteApp', [
@@ -8,8 +9,7 @@
             'ngResource',
             'ngSanitize',
             'ngRoute'
-        ])
-        .config(function ($routeProvider) {
+        ]).config(function ($routeProvider) {
             $routeProvider
                 .when('/', {
                     templateUrl: 'views/main.html',
@@ -72,5 +72,8 @@
                 .otherwise({
                     redirectTo: '/'
                 });
+        }).run(function ($rootScope, $location) {
+            // Enforce a redirect to the bootstrap page only on initial load or if additional resources are still loading
+            $location.path('/');
         });
 })();

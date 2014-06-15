@@ -6,6 +6,7 @@
     app.controller('SpriteCtrl',
     ['$scope', '$http', '$routeParams', 'spriteSrv', 'imageSrv', 'zoomSrv', 'timelineSrv', 'animSrv',
     function ($scope, $http, $routeParams, spriteSrv, imageSrv, zoomSrv, timelineSrv, animSrv) {
+        console.log('hit');
         var spriteCtrl = this;
         this.list = spriteSrv.list;
         $scope.spriteSearch = $routeParams.spriteSearch; // Force filter if URL param is available
