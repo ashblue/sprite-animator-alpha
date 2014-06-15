@@ -68,7 +68,7 @@
         this.clear = function () {
             frameSrv.current = null;
             $scope.$emit('clearFrame', frame);
-        }
+        };
 
         // Is the current frame active?
         this.isActive = function (frame) {

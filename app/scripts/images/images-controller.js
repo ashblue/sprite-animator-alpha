@@ -54,10 +54,10 @@
             var sprites = [];
             spriteSrv.list.forEach(function (sprite) {
                 if (sprite.image === image._id) {
-                    sprites.push(sprite._id);
+                    sprites.push(sprite);
                 }
             });
-            sprites.forEach(function (id) { spriteSrv.destroy(id); });
+            sprites.forEach(function (sprite) { $scope.$emit('removeSprite', sprite); });
         };
     });
 

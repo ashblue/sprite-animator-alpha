@@ -1,6 +1,7 @@
 (function () {
     'use strict';
 
+    // @TODO The data removal system is a mess, needs to be rewritten with events
     angular
         .module('spriteApp', [
             'ngCookies',

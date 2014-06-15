@@ -12,7 +12,7 @@
                 F-Width: {{sprite.width}}, F-Height: {{sprite.height}}
                 <button ng-click="spritesCtrl.editSprite($event, sprite)" class="btn btn-default btn-xs pull-right"><span class="glyphicon glyphicon-edit"></span></button>
                 <button ng-click="spritesCtrl.uploadSwap(sprite)" title="Swap out the spritesheet image with a different one" class="btn btn-default btn-xs pull-right" style="margin-right: 5px;"><span class="fa fa-refresh"></span></button>
-                <button ng-click="spritesCtrl.removeSprite($event, sprite)" style="margin-right: 5px;" class="btn btn-danger btn-xs pull-right"><span class="glyphicon glyphicon-remove"></span></button>
+                <button ng-click="spritesCtrl.clickRemove($event, sprite)" style="margin-right: 5px;" class="btn btn-danger btn-xs pull-right"><span class="glyphicon glyphicon-remove"></span></button>
             </div>
         </a>
     </div>
