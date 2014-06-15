@@ -4,7 +4,7 @@
     // Logic for image manager section
     var app = angular.module('spriteApp');
 
-    app.controller('AnimGroup', function ($scope, animGroupSrv, animSrv) {
+    app.controller('AnimGroup', function ($scope, animGroupSrv, animSrv, timelineSrv, frameSrv) {
         var animGroupCtrl = this;
         this.show = false; // Show the manager
         this.showSettings = false; // Show the settings
@@ -40,10 +40,24 @@
 
             if (item._id === animGroupSrv.current._id) this.set({});
             animGroupSrv.destroy(item._id);
-            $scope.$emit('clearAnimationGroup');
+            $scope.$emit('clearAnimationGroup', item);
+            $scope.$emit('clearFrame');
 
-            // @TODO Find all animations, timelines, and frames. Then delete them
+            // Find all animations, timelines, and frames. Then delete them
             item.animations.forEach(function (id) {
+                var anim = animSrv.get(id);
+
+                anim.timelines.forEach(function (timelineId) {
+                    var timeline = timelineSrv.get(timelineId);
+
+                    timeline.frames.forEach(function (frameId) {
+                        $scope.$emit('clearFrame', frameSrv.get(frameId));
+                        $scope.$emit('removeFrame', frameSrv.get(frameId));
+                    });
+
+                    timelineSrv.destroy(timelineId);
+                });
+
                 animSrv.destroy(id);
             });
         };
