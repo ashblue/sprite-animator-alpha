@@ -3,7 +3,7 @@
 
     var app = angular.module('spriteApp');
 
-    app.controller('FramesContextCtrl', function ($scope, frameSrv) {
+    app.controller('FramesContextCtrl', function ($scope, frameSrv, timelineSrv) {
         var ctrl = this;
         this.current = null;
         this.currentImage = {};
@@ -89,6 +89,8 @@
 
         this.remove = function () {
             var frame = this.current;
+            var timeline = timelineSrv.get(frame.timeline);
+            timeline.frames.erase(frame._id);
             $scope.$emit('clearFrame', frame);
             $scope.$emit('removeFrame', frame);
         };
